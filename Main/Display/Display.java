@@ -91,6 +91,14 @@ public class Display extends JFrame implements Listener, Notifier {
         this.currentPage = currentPage;
         this.getContentPane().add(this.currentPage);
         this.currentPage.addListener(this);
+
+        /* Temporary Code - TODO: Clean later / Make separate function */
+        this.setVisible(true);
+        this.revalidate();
+        this.repaint();
+        this.setVisible(false);
+        this.setVisible(true);
+
     }
 
     public void startRunning() {

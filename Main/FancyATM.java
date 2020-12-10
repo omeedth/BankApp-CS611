@@ -97,10 +97,11 @@ public class FancyATM implements Listener {
         startRunning();
 
         /* Initialize the ATM */
-        this.init();
+        this.init();        
 
         /* TESTING */
-        this.display.changePage(new RegisterPage());
+        // this.display.changePage(new RegisterPage()); // WORKS
+        // login();
 
         /* Continually wait for actions on the Display */
         while (this.isRunning) {

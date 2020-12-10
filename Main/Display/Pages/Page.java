@@ -22,8 +22,9 @@ import java.util.ArrayList;
 // import Main.FancyATM;
 import Main.Requests.*;
 import Main.Utility.Listener;
+import Main.Utility.Notifier;
 
-public abstract class Page extends JPanel implements ActionListener {
+public abstract class Page extends JPanel implements ActionListener, Notifier {
 
     /* Static/Final Members */
     private static final long serialVersionUID = -21000961599094556L;
@@ -45,30 +46,31 @@ public abstract class Page extends JPanel implements ActionListener {
         return currentRequest;
     }
 
+    @Override
     public List<Listener> getListeners() {
         return this.listeners;
-    }
+    }    
 
+    /* Mutator Methods */
+
+    @Override
     public void addListener(Listener listener) {
         this.listeners.add(listener);
-        System.out.println("Added Listener Object: " + listener);
     }
 
+    @Override
     public boolean removeListener(Listener listener) {
         return this.listeners.remove(listener);
     }
 
+    @Override
     public void clearListeners() {
         this.listeners.clear();
     }
 
-    /* Mutator Methods */
-
     public void setCurrentRequest(Request request) {
         this.currentRequest = request;
-        for (Listener listener : this.listeners) {
-            listener.update(request);
-        }
+        notifyAllListeners(request);
     }
 
     /* Logic Methods */

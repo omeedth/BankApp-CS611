@@ -33,9 +33,10 @@ import javax.swing.JPanel;
 import Main.Display.Display;
 import Main.Display.Pages.*;
 import Main.Users.User;
+import Main.Utility.Listener;
 import Main.Requests.*;
 
-public class FancyATM implements ActionListener {
+public class FancyATM implements Listener {
 
     /* Data Members */
     private Bank bank;
@@ -76,6 +77,7 @@ public class FancyATM implements ActionListener {
      */
     public void init() {
 
+        /* Configure Display */
         int width = 500, height = 500;
 
         this.display.setName("Fancy ATM");
@@ -84,12 +86,8 @@ public class FancyATM implements ActionListener {
         this.display.setSize(width, height);
         this.display.setVisible(true);
 
-        /* TESTING */
-        // this.display.getContentPane().add(new JButton("Test Button")); // Displayed the button
-        // JPanel panel = new JPanel();
-        // panel.add(new JButton("Test Button"));
-        // this.display.getContentPane().add(panel);
-        /*---------*/
+        /* Add Listeners */
+        this.display.addListener(this);
 
     }
 
@@ -100,6 +98,9 @@ public class FancyATM implements ActionListener {
 
         /* Initialize the ATM */
         this.init();
+
+        /* TESTING */
+        this.display.changePage(new RegisterPage());
 
         /* Continually wait for actions on the Display */
         while (this.isRunning) {
@@ -119,9 +120,25 @@ public class FancyATM implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        System.out.println("Action Occurred: " + e);
+    public void update(Object obj) {
+        System.out.println("Update (FancyATM): " + obj);
+
+        /* Check what type of object is is and update accordingly */
+        if (obj instanceof Request) {
+
+            // ((Request) obj).performRequest(bank);
+            
+            if (obj instanceof Login) {
+                // Do login
+                login();
+            }
+
+        }
+    }
+
+    public void login() {
+        System.out.println("Logging in...");
+        this.display.changePage(new RegisterPage());
     }
 
 }

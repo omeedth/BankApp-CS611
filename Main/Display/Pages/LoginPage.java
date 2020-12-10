@@ -14,11 +14,14 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 
 /* Internal Imports */
-import Main.FancyATM;
+// import Main.FancyATM;
 import Main.Requests.*;
 
 public class LoginPage extends Page {
     
+    /* Static/Final Members */
+    private static final long serialVersionUID = 6171384018996908597L;
+
     /* Data Members */
     // TODO: Username InputBox
     // TODO: Password InputBox
@@ -30,7 +33,12 @@ public class LoginPage extends Page {
     /* Constructors */
 
     public LoginPage() {
-        
+        usernameInput = new JTextField("Username");
+
+        passwordInput = new JTextField("Password");
+
+        login = new JButton("Login");
+        this.init();
     }
 
     /* Accessor Methods */
@@ -51,6 +59,18 @@ public class LoginPage extends Page {
 
     /* Logic Methods */
 
+    public void init() {
+        /* Initialize the listeners */
+        // this.usernameInput.addActionListener(this);
+        // this.passwordInput.addActionListener(this);
+        this.login.addActionListener(this);
+
+        /* Add all components onto this Page object */
+        this.add(this.usernameInput);
+        this.add(this.passwordInput);
+        this.add(this.login);        
+    }
+
     public void waitForRequestCompletion() {
 
         /* Start running */
@@ -63,9 +83,11 @@ public class LoginPage extends Page {
     }
 
     // if the button is pressed 
+    @Override
     public void actionPerformed(ActionEvent e) 
     { 
         String s = e.getActionCommand(); 
+        System.out.println("Action Command: " + s);
         if (s.equals("Login")) { 
             /* Gets the username text, and the password text -> Calls FancyATM to login */
             String username = usernameInput.getText();

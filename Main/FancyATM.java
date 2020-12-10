@@ -1,5 +1,7 @@
 package Main;
 
+import java.awt.event.ActionEvent;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -21,6 +23,11 @@ package Main;
  */
 
 /* External Imports */
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /* Internal Imports */
 import Main.Display.Display;
@@ -28,8 +35,8 @@ import Main.Display.Pages.*;
 import Main.Users.User;
 import Main.Requests.*;
 
-public class FancyATM {
-    
+public class FancyATM implements ActionListener {
+
     /* Data Members */
     private Bank bank;
     private Display display;
@@ -38,8 +45,8 @@ public class FancyATM {
     /* Constructors */
 
     public FancyATM() {
-        display = new Display();
-        bank = new Bank();
+        this.display = new Display();
+        this.bank = new Bank();        
     }
 
     /* Accessor Methods */
@@ -64,25 +71,57 @@ public class FancyATM {
 
     /* Logic Methods */
 
+    /**
+     * Initialize variables necessary for the FancyATM
+     */
+    public void init() {
+
+        int width = 500, height = 500;
+
+        this.display.setName("Fancy ATM");
+        this.display.setTitle("Fancy ATM Application");
+        this.display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.display.setSize(width, height);
+        this.display.setVisible(true);
+
+        /* TESTING */
+        // this.display.getContentPane().add(new JButton("Test Button")); // Displayed the button
+        // JPanel panel = new JPanel();
+        // panel.add(new JButton("Test Button"));
+        // this.display.getContentPane().add(panel);
+        /*---------*/
+
+    }
+
     public void start() {
 
         /* Starts the ATM */
         startRunning();
 
+        /* Initialize the ATM */
+        this.init();
+
         /* Continually wait for actions on the Display */
-        while(this.isRunning) {
+        while (this.isRunning) {
 
-            Request request = this.display.getCurrentRequest();
-            if (request != null) {
-                /* Fulfill the request */          
-                int status = request.performRequest(bank);
+            // Request request = this.display.getCurrentRequest();
+            // if (request != null) {
+            //     /* Fulfill the request */
+            //     int status = request.performRequest(bank);
 
-                /*  */
-                
-            }
+            //     /*  */
+
+            // }
+            this.stopRunning();
 
         }
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println("Action Occurred: " + e);
     }
 
 }

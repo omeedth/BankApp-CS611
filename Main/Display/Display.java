@@ -10,13 +10,20 @@ package Main.Display;
 /* External Imports */
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /* Internal Imports */
-import Main.FancyATM;
+// import Main.FancyATM;
 import Main.Display.Pages.LoginPage;
 import Main.Display.Pages.Page;
 import Main.Requests.*;
+import Main.Utility.Listener;
 
-public class Display {
+public class Display extends JFrame implements ActionListener, Listener {
+
+    /* Static/Final Variables */
+    private static final long serialVersionUID = 6324764035158949832L;
     
     /* Data Members */
     private Request currentRequest;
@@ -26,11 +33,13 @@ public class Display {
     /* Constructors */
 
     public Display(Page page) {
-        this.currentPage = page;
+        super();
+        this.setCurrentPage(page);
+        this.init();
     }
 
     public Display() {
-        this.currentPage = new LoginPage();
+        this(new LoginPage());        
     }
 
     /* Accessor Methods */
@@ -50,7 +59,10 @@ public class Display {
     }
 
     public void setCurrentPage(Page currentPage) {
+        assert currentPage != null;
         this.currentPage = currentPage;
+        this.getContentPane().add(this.currentPage);
+        this.currentPage.addListener(this);
     }
 
     public void startRunning() {
@@ -63,29 +75,40 @@ public class Display {
 
     /* Logic Methods */
 
-    /*
-     * Displays the login page for users
-     * Returns: The next page to go to
+    /**
+     * Initializes all listeners, and other necessary variables for the display
      */
-    public Page login() {
-        return new LoginPage();
+    public void init() {
+        
     }
 
     /**
      * 
      */
-    public void waitForAction() {
+    // public void waitForAction() {
 
-        /* Start the display */
-        startRunning();
+    //     /* Start the display */
+    //     startRunning();
 
-        /* Wait for actions on the current page */
-        while(this.isRunning) {
+    //     /* Wait for actions on the current page */
+    //     while (this.isRunning) {
 
-            this.setCurrentRequest(this.getCurrentPage().getCurrentRequest());
+    //         this.setCurrentRequest(this.getCurrentPage().getCurrentRequest());
 
-        }
+    //     }
 
+    // }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println("Action: " + e);
+    }
+
+    @Override
+    public void update(Object obj) {
+        // TODO Auto-generated method stub
+        System.out.println("Object: " + obj);
     }
 
 }

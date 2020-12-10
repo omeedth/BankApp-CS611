@@ -1,5 +1,3 @@
-package Main;
-
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -7,11 +5,18 @@ package Main;
  * 
  */
 
+/* External Imports */
+
+/* Internal Imports */
+import Main.FancyATM;
+
 public class App {
     
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         /* Make instance of FancyATM and Start it */
+        FancyATM atm = new FancyATM();
+        atm.start();
 
     }
 

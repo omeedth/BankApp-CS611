@@ -44,5 +44,11 @@ public class UserPage extends Page {
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void display() {
+        // TODO Auto-generated method stub
+
+    }
     
 }

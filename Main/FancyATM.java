@@ -99,25 +99,6 @@ public class FancyATM implements Listener {
         /* Initialize the ATM */
         this.init();        
 
-        /* TESTING */
-        // this.display.changePage(new RegisterPage()); // WORKS
-        // login();
-
-        /* Continually wait for actions on the Display */
-        while (this.isRunning) {
-
-            // Request request = this.display.getCurrentRequest();
-            // if (request != null) {
-            //     /* Fulfill the request */
-            //     int status = request.performRequest(bank);
-
-            //     /*  */
-
-            // }
-            this.stopRunning();
-
-        }
-
     }
 
     @Override

@@ -23,8 +23,9 @@ import java.util.ArrayList;
 import Main.Requests.*;
 import Main.Utility.Listener;
 import Main.Utility.Notifier;
+import Main.Display.Displayable;
 
-public abstract class Page extends JPanel implements ActionListener, Notifier {
+public abstract class Page extends JPanel implements ActionListener, Notifier, Displayable {
 
     /* Static/Final Members */
     private static final long serialVersionUID = -21000961599094556L;

@@ -63,12 +63,8 @@ public class LoginPage extends Page {
         /* Initialize the listeners */
         // this.usernameInput.addActionListener(this);
         // this.passwordInput.addActionListener(this);
-        this.login.addActionListener(this);
-
-        /* Add all components onto this Page object */
-        this.add(this.usernameInput);
-        this.add(this.passwordInput);
-        this.add(this.login);        
+        this.login.addActionListener(this);   
+        display();    
     }
 
     public void waitForRequestCompletion() {
@@ -94,6 +90,14 @@ public class LoginPage extends Page {
             String password = passwordInput.getText();
             this.setCurrentRequest(new Login(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
         } 
-    } 
+    }
+
+    @Override
+    public void display() {
+        /* Add all components onto this Page object */
+        this.add(this.usernameInput);
+        this.add(this.passwordInput);
+        this.add(this.login); 
+    }
     
 }

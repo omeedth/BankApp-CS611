@@ -1,7 +1,5 @@
 package Main;
 
-import java.awt.event.ActionEvent;
-
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -23,21 +21,15 @@ import java.awt.event.ActionEvent;
  */
 
 /* External Imports */
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /* Internal Imports */
 import Main.Display.Display;
 import Main.Display.Pages.*;
 import Main.Users.User;
-import Main.Utility.Listener;
 import Main.Requests.*;
 
-public class FancyATM implements Listener {
-
+public class FancyATM {
+    
     /* Data Members */
     private Bank bank;
     private Display display;
@@ -46,8 +38,8 @@ public class FancyATM implements Listener {
     /* Constructors */
 
     public FancyATM() {
-        this.display = new Display();
-        this.bank = new Bank();        
+        display = new Display();
+        bank = new Bank();
     }
 
     /* Accessor Methods */
@@ -72,55 +64,26 @@ public class FancyATM implements Listener {
 
     /* Logic Methods */
 
-    /**
-     * Initialize variables necessary for the FancyATM
-     */
-    public void init() {
-
-        /* Configure Display */
-        int width = 500, height = 500;
-
-        this.display.setName("Fancy ATM");
-        this.display.setTitle("Fancy ATM Application");
-        this.display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.display.setSize(width, height);
-        this.display.setVisible(true);
-
-        /* Add Listeners */
-        this.display.addListener(this);
-
-    }
-
     public void start() {
 
         /* Starts the ATM */
         startRunning();
 
-        /* Initialize the ATM */
-        this.init();        
+        /* Continually wait for actions on the Display */
+        while(this.isRunning) {
 
-    }
+            Request request = this.display.getCurrentRequest();
+            if (request != null) {
+            	System.out.println("Request Done!");
+                /* Fulfill the request */          
+                int status = request.performRequest(bank);
 
-    @Override
-    public void update(Object obj) {
-        System.out.println("Update (FancyATM): " + obj);
-
-        /* Check what type of object is is and update accordingly */
-        if (obj instanceof Request) {
-
-            // ((Request) obj).performRequest(bank);
-            
-            if (obj instanceof Login) {
-                // Do login
-                login();
+                /*  */
+                
             }
 
         }
-    }
 
-    public void login() {
-        System.out.println("Logging in...");
-        this.display.changePage(new RegisterPage());
     }
 
 }

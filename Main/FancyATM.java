@@ -108,13 +108,7 @@ public class FancyATM implements Listener {
         /* Check what type of object is is and update accordingly */
         if (obj instanceof Request) {
 
-            // ((Request) obj).performRequest(bank);
-            
-            if (obj instanceof Login) {
-                // Do login
-                login();
-            }
-
+            ((Request) obj).performRequest(bank, this);
         }
     }
 

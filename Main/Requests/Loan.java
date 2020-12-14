@@ -1,6 +1,7 @@
 package Main.Requests;
 
 import Main.Bank;
+import Main.FancyATM;
 
 /* 
  *  Author: 
@@ -26,7 +27,7 @@ public class Loan extends Request {
     /* Logic Methods */
     
     @Override
-    public int performRequest(Bank bank) {
+    public int performRequest(Bank bank, FancyATM atm) {
         // TODO Auto-generated method stub
         return 0;
     }

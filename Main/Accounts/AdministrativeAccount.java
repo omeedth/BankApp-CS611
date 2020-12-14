@@ -22,5 +22,6 @@ public class AdministrativeAccount extends ManagerAccount {
     /* Mutator Methods */
 
     /* Logic Methods */
+
     
 }

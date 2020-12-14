@@ -8,23 +8,37 @@ package Main.Display.Pages;
  */
 
 /* External Imports */
-import javax.swing.*;
-import java.awt.event.*;
+// import javax.swing.*;
+// import java.awt.event.*;
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import java.util.ArrayList;
 
 /* Internal Imports */
-import Main.FancyATM;
+// import Main.FancyATM;
 import Main.Requests.*;
+import Main.Utility.Listener;
+import Main.Utility.Notifier;
+import Main.Display.Displayable;
 
-public abstract class Page {
+public abstract class Page extends JPanel implements ActionListener, Notifier, Displayable {
+
+    /* Static/Final Members */
+    private static final long serialVersionUID = -21000961599094556L;
 
     /* Data Members */
     private Request currentRequest;
-    protected JFrame window;
+    private List<Listener> listeners;
 
     /* Constructors */
 
     public Page() {
         this.currentRequest = null;
+        this.listeners = new ArrayList<>();
     }
 
     /* Accessor Methods */
@@ -33,23 +47,33 @@ public abstract class Page {
         return currentRequest;
     }
 
-	public JFrame getWindow() {
-		return window;
-	}
+    @Override
+    public List<Listener> getListeners() {
+        return this.listeners;
+    }    
 
     /* Mutator Methods */
 
-    public void setCurrentRequest(Request request) {
-        this.currentRequest = request;
+    @Override
+    public void addListener(Listener listener) {
+        this.listeners.add(listener);
     }
 
-	public void setWindow(JFrame window) {
-		this.window = window;
-	}
+    @Override
+    public boolean removeListener(Listener listener) {
+        return this.listeners.remove(listener);
+    }
+
+    @Override
+    public void clearListeners() {
+        this.listeners.clear();
+    }
+
+    public void setCurrentRequest(Request request) {
+        this.currentRequest = request;
+        notifyAllListeners(request);
+    }
 
     /* Logic Methods */
-	public void loadPage() {
-		
-	}
     
 }

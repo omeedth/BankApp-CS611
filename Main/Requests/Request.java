@@ -12,6 +12,9 @@ package Main.Requests;
 
 /* Internal Imports */
 import Main.Bank;
+import Main.FancyATM;
+import Main.Records.RecordEntry;
+import Main.Records.RequestRecord;
 
 public abstract class Request {
 
@@ -38,6 +41,16 @@ public abstract class Request {
 
     /* Logic Methods */
 
-    public abstract int performRequest(Bank bank); // Might return RequestResult Object (Think about later)
+    public abstract int performRequest(Bank bank, FancyATM atm); // Might return RequestResult Object (Think about later)
+
+    public RequestRecord createRecordEntry() {
+    	RequestRecord record = new RequestRecord();
+    	record.setOriginalRequest(this);
+    	return record;
+    }
+    
+    protected void writeRecord(Bank bank) {
+    	bank.addToHistory(createRecordEntry());
+    }
     
 }

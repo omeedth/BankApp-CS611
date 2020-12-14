@@ -1,5 +1,6 @@
 package Main.Accounts;
 
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -10,8 +11,9 @@ package Main.Accounts;
 /* External Imports */
 
 /* Internal Imports */
+import Main.Currencies.Currency;
 
-public class CheckingsAccount extends ClientAccount {
+public class CheckingsAccount extends DepositAccount {
     
     /* Data Members */
 
@@ -22,5 +24,20 @@ public class CheckingsAccount extends ClientAccount {
     /* Mutator Methods */
 
     /* Logic Methods */
+
+	@Override
+	public void determineMinAmount() {
+		minAmount = 0;
+	}
+
+	@Override
+	public boolean canDeposit(Currency money) {
+		return true;
+	}
+
+	@Override
+	public boolean canWithdraw(Currency money) {
+		return willRemainAboveMinAmount(money);
+	}
 
 }

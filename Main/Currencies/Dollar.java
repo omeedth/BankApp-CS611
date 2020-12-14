@@ -16,11 +16,32 @@ public class Dollar extends Currency {
     /* Data Members */
 
     /* Constructors */
+	public Dollar() {
+		this(null);
+	}
+	
+	public Dollar(double amount) {
+		super(amount);
+	}
+	
+	public Dollar(Currency currency2) {
+		super(currency2);
+	}
 
     /* Accessor Methods */
 
     /* Mutator Methods */
 
     /* Logic Methods */
+
+	@Override
+	protected void determineName() {
+		name = "Dollar";
+	}
+
+	@Override
+	protected void determineExchangeRate() {
+		exchangeRate = 1;
+	}
 
 }

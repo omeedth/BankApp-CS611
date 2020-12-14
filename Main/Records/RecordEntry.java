@@ -7,34 +7,32 @@ package Main.Records;
  */
 
 /* External Imports */
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /* Internal Imports */
 
 public abstract class RecordEntry {
     
     /* Data Members */
-    private String recordName;
-    private List<Object> recordData;
+    private String[] keys;
+    private HashMap<String,Object> recordData;
 
     /* Constructors */
 
-    public RecordEntry() {
-        recordData = new ArrayList<>();
-    }  
-
     public RecordEntry(String recordString) {
-
+        this.keys = this.keys();
+        boolean valid = validRecordString(recordString);
+        if (valid) this.recordData = stringToRecord(recordString)
+        else throw new IllegalArgumentException("Invalid Record String!");
     }
 
     /* Accessor Methods */
 
-    public String getRecordName() {
-        return recordName;
+    public String[] getKeys() {
+        return keys;
     }
 
-    public List<Object> getRecordData() {
+    public HashMap<String,Object> getRecordData() {
         return recordData;
     }
 
@@ -42,6 +40,9 @@ public abstract class RecordEntry {
 
     /* Logic Methods */
 
-    public abstract String convertToString();
+    public abstract String convertToString();    
+    public abstract boolean validRecordString(String recordString);
+    public abstract HashMap<String,Object> stringToRecord(String recordString);
+    public abstract String[] keys();
 
 }

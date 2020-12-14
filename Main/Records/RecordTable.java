@@ -11,20 +11,25 @@ import java.util.List;
 
 /* Internal Imports */
 
-public class Record {
+public class RecordTable<T extends RecordEntry> {
     
     /* Data Members */
-    List<RecordEntry> recordEntries;
+    String tableName;
+    List<T> recordEntries;
 
     /* Constructors */
 
-    public Record() {
+    public RecordTable() {
 
     }
 
     /* Accessor Methods */
 
-    public List<RecordEntry> getRecordEntries() {
+    public String getTableName() {
+        return tableName;
+    }
+
+    public List<T> getRecordEntries() {
         return recordEntries;
     }
 

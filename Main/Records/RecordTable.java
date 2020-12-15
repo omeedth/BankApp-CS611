@@ -8,6 +8,7 @@ package Main.Records;
 
 /* External Imports */
 import java.util.List;
+import java.util.ArrayList;
 
 /* Internal Imports */
 
@@ -20,7 +21,13 @@ public class RecordTable<T extends RecordEntry> {
     /* Constructors */
 
     public RecordTable() {
+        tableName = "DEFAULT";
+        recordEntries = new ArrayList<>();
+    }
 
+    public RecordTable(String tableName) {
+        this.tableName = tableName;
+        recordEntries = new ArrayList<>();
     }
 
     /* Accessor Methods */

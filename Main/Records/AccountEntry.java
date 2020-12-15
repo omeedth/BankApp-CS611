@@ -15,22 +15,23 @@ import java.util.ArrayList;
 
 /* Internal Imports */
 import Main.Users.User;
+import Main.Accounts.Account;
 
-public class UserEntry extends RecordEntry {
+public class AccountEntry extends RecordEntry {
 
     /* Static/Final Members */
-    public static final String filepath = "./Data/Users.csv";
-    public static final String[] keys = new String[] {"id","name","username","hashedPassword"};
+    public static final String filepath = "./Data/Accounts.csv";
+    public static final String[] keys = new String[] {"id","creationDate"};
 
     /* Data Members */
 
     /* Constructors */
 
-    public UserEntry(String recordString) {
+    public AccountEntry(String recordString) {
         super(recordString);
     }
 
-    public <T extends User & Recordable> UserEntry(T recordableObj) {
+    public <T extends Account & Recordable> AccountEntry(T recordableObj) {
         super(recordableObj.toRecordString());
     }
 

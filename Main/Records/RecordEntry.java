@@ -43,8 +43,29 @@ public abstract class RecordEntry {
 
     /* Logic Methods */
   
-    public abstract boolean validRecordString(String recordString);
-    public abstract HashMap<String,Object> stringToRecord(String recordString);
+    public boolean validRecordString(String recordString) {
+        String[] values = recordString.split(",");
+        String[] keys = this.getKeys();
+        boolean sameLength = keys.length == values.length;
+        return sameLength;
+    }
+
+    public HashMap<String,Object> stringToRecord(String recordString) {
+        HashMap<String,Object> data = new HashMap<>();
+        String[] values = recordString.split(",");
+        String[] keys = this.getKeys();
+
+        for (int i = 0; i < values.length; i++) {
+            String value = values[i];
+            String key = keys[i];
+            data.put(key, value);
+        }
+
+        return data;
+    }
+
+    // public abstract boolean validRecordString(String recordString);
+    // public abstract HashMap<String,Object> stringToRecord(String recordString);
     public abstract String[] getKeys();
 
     /* Static Methods */

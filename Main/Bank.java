@@ -12,38 +12,53 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 /* Internal Imports */
 import Main.Users.*;
 import Main.Utility.FileParserUtility;
-import Main.Records.RecordEntry;
+import Main.Records.AccountEntry;
+import Main.Records.RequestEntry;
 import Main.Records.UserEntry;
-import Main.Records.History;
+import Main.Records.RecordTable;
+import Main.Records.TransactionEntry;
+import Main.Currencies.Dollar;
 
 public class Bank {
 
+    /* Static/Final Members */
+    public static final Dollar fee = new Dollar(5);
+
     /* Data Members */
-    private List<User> users;
-    private HashMap<String,User> userMap;
-    private History bankRecord;
+    private RecordTable<RequestEntry> history;
+    private RecordTable<UserEntry> users;
+    private RecordTable<TransactionEntry> transactions;
+    private RecordTable<AccountEntry> accounts;
+
+    // private List<User> users;
+    // private HashMap<String,User> userMap;
+    // private History bankRecord;
 
     /* Constructors */
 
     public Bank() {
-        users = new ArrayList<>();
-        userMap = new HashMap<>();
-        bankRecord = new History();
+        history = new RecordTable<>();
+        users = new RecordTable<>();
+        accounts = new RecordTable<>();
+        transactions = new RecordTable<>();
+
+        // users = new ArrayList<>();
+        // userMap = new HashMap<>();
+        // bankRecord = new History();
     }
 
     /* Accessor Methods */
 
-    public List<User> getUsers() {
+    public RecordTable<UserEntry> getUsers() {
         return users;
     }
     
-    public History getBankRecord() {
-    	return bankRecord;
-    }
+    // public RecordTable<TransactionEntry> getTransactions() {
+    // 	return transactions;
+    // }
 
     /* Mutator Methods */
 
@@ -91,8 +106,20 @@ public class Bank {
         return false;
     }
     
-    public void addToHistory(RecordEntry entry) {
-    	bankRecord.addEntry(entry);
+    public void addToHistory(UserEntry entry) {
+        this.users.getRecordEntries().add(entry);
+    }
+
+    public void addToHistory(AccountEntry entry) {
+        this.accounts.getRecordEntries().add(entry);
+    }
+
+    public void addToHistory(TransactionEntry entry) {
+        this.transactions.getRecordEntries().add(entry);
+    }
+
+    public void addToHistory(RequestEntry entry) {
+        this.history.getRecordEntries().add(entry);
     }
     
 }

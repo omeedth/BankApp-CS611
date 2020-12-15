@@ -16,16 +16,15 @@ import java.util.HashMap;
 /* Internal Imports */
 import Main.Users.User;
 import Main.Bank;
-import Main.Records.History;
 
 public abstract class Account {
 	
 	private static int accountTotal = 0;
 
     /* Data Members */
-	public Bank bank;
-	protected HashMap<String,Boolean> permissions;
-	private String username, password;
+    public Bank bank;    
+	// protected HashMap<String,Boolean> permissions;
+	// private String username, password;
 	private Date dateCreated;
 	private int accountID;
 
@@ -33,9 +32,9 @@ public abstract class Account {
     /* Constructors */
 	public Account() {
 		bank = null;
-		permissions = new HashMap<String,Boolean>();
-		username = "";
-		password = "";
+		// permissions = new HashMap<String,Boolean>();
+		// username = "";
+		// password = "";
 		accountID = accountTotal;
 		accountTotal++;
 	}
@@ -43,9 +42,9 @@ public abstract class Account {
     /* Accessor Methods */
 	public abstract User getAccountHolder();
 
-	public String getUsername() {
-		return username;
-	}
+	// public String getUsername() {
+	// 	return username;
+	// }
 	
 	public Date getDateCreated() {
 		return dateCreated;
@@ -62,17 +61,12 @@ public abstract class Account {
 		return getAccountHolder() == account2.getAccountHolder();
 	}
 	
-	protected boolean hasPermission(String p) {
-		return permissions.containsKey(p) && permissions.get(p);
-	}
+	// protected boolean hasPermission(String p) {
+	// 	return permissions.containsKey(p) && permissions.get(p);
+	// }
 	
-	public boolean checkPassword(String passwordInput) {
-		return password.equals(passwordInput);
-	}
-
-	public History readHistory() {
-		//TODO: Add history
-		return null;
-	}
+	// public boolean checkPassword(String passwordInput) {
+	// 	return password.equals(passwordInput);
+	// }
 	
 }

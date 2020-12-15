@@ -66,13 +66,14 @@ public class Login extends Request {
     }
 
     @Override
-    public int performRequest(Bank bank) { // , FancyATM atm
+    public int performRequest(FancyATM atm) { // , FancyATM atm
         // TODO - 1. Validates the credentials using Bank's backend
         //        2. Returns status variable whether or not it's okay to change page, etc.
         //        3. Sets the flag of this request to the status (same as the return)
         int status = 0;
 
         System.out.println("Logging in...");
+        Bank bank = atm.getBank();
         boolean userRecordExist = bank.validateUser(username, password);
         if (userRecordExist) {
             System.out.println("Username Password Combo Exists!");

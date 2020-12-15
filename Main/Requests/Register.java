@@ -11,6 +11,7 @@ package Main.Requests;
 
 /* Internal Imports */
 import Main.Bank;
+import Main.FancyATM;
 import Main.Records.UserEntry;
 import Main.Users.Client;
 import Main.Utility.FileParserUtility;
@@ -39,13 +40,14 @@ public class Register extends Request {
     /* Logic Methods */
 
     @Override
-    public int performRequest(Bank bank) {
+    public int performRequest(FancyATM atm) {
         // TODO - 1. Validates the credentials using Bank's backend
         //        2. Returns status variable whether or not it's okay to change page, etc.
         //        3. Sets the flag of this request to the status (same as the return)
         int status = 0;
 
         System.out.println("Registering...");
+        Bank bank = atm.getBank();
         boolean userRecordExist = bank.userExists(username);
         if (userRecordExist) {
             System.out.println("User Exists!");

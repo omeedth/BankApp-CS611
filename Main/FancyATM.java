@@ -110,6 +110,9 @@ public class FancyATM implements Listener {
                     login();
                 }                
             }
+            // if (obj instanceof Register){
+            //     register();
+            // }
 
         }
     }
@@ -117,5 +120,10 @@ public class FancyATM implements Listener {
     public void login() {
         this.display.changePage(new RegisterPage());
     }
+
+    // public void register() {
+    //     System.out.println("Registering for new user...");
+    //     this.display.changePage(new UserPage();)
+    // }
 
 }

@@ -57,7 +57,7 @@ public abstract class Transaction extends Request {
 	public abstract boolean makeTransaction();
 	
     @Override
-    public int performRequest(Bank bank, FancyATM atm) {
+    public int performRequest(FancyATM atm) {
     	if(!canMakeTransaction()) {
     		setFlag(-1);
     		return -1;

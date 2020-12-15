@@ -29,6 +29,7 @@ public class LoginPage extends Page {
     private JTextField usernameInput;
     private JTextField passwordInput;
     private JButton login;
+    private JButton register;
 
     /* Constructors */
 
@@ -38,6 +39,7 @@ public class LoginPage extends Page {
         passwordInput = new JTextField("Password");
 
         login = new JButton("Login");
+        register = new JButton("Register");
         this.init();
     }
 
@@ -64,6 +66,7 @@ public class LoginPage extends Page {
         // this.usernameInput.addActionListener(this);
         // this.passwordInput.addActionListener(this);
         this.login.addActionListener(this);   
+        this.register.addActionListener(this);
         display();    
     }
 
@@ -89,7 +92,12 @@ public class LoginPage extends Page {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             this.setCurrentRequest(new Login(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
-        } 
+        } else if (s.equals("Register")) {
+            /* Gets the username text, and the password text -> Calls FancyATM to login */
+            String username = usernameInput.getText();
+            String password = passwordInput.getText();
+            this.setCurrentRequest(new Register(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
+        }
     }
 
     @Override
@@ -98,6 +106,7 @@ public class LoginPage extends Page {
         this.add(this.usernameInput);
         this.add(this.passwordInput);
         this.add(this.login); 
+        this.add(this.register);
     }
     
 }

@@ -1,5 +1,6 @@
 package Main.Users;
 
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -18,6 +19,7 @@ import Main.Records.Recordable;
 public abstract class User implements Recordable {
 
     /* Static/Final Members */
+    public static int userCounter;
 
     /* Data Members */
     private int id;
@@ -28,20 +30,20 @@ public abstract class User implements Recordable {
 
     /* Constructors */
 
-    // public User() {
-    //     id = (int) (Math.random() * Integer.MAX_VALUE);
-    //     name = "";
-    //     username = "";
-    //     hashedPassword = 0;
-    //     accounts = new ArrayList<>();
+    public User() {
+        this("",0);
+    }
+
+    public User(String username, int hashedPassword) {
+        this(userCounter,"",username,hashedPassword);
+    }
+
+    // public User(int id, String username, int hashedPassword) {
+    //     this(id,"",username,hashedPassword);
     // }
 
-    public User(int id, String username, int hashedPassword) {
-        this.id = id;
-        this.name = "";
-        this.username = username;
-        this.hashedPassword = hashedPassword;
-        this.accounts = new ArrayList<>();
+    public User(String name, String username, int hashedPassword) {
+        this(userCounter,name,username,hashedPassword);
     }
 
     public User(int id, String name, String username, int hashedPassword) {
@@ -50,6 +52,7 @@ public abstract class User implements Recordable {
         this.username = username;
         this.hashedPassword = hashedPassword;
         this.accounts = new ArrayList<>();
+        userCounter++;
     }
 
     /* Accessor Methods */
@@ -90,6 +93,10 @@ public abstract class User implements Recordable {
         // data.add(String.join("~", accounts));
 
         return String.join(",", data);
+    }
+    
+    public void addAccount(Account account) {
+    	accounts.add(account);
     }
     
 }

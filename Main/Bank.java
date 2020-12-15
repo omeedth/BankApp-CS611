@@ -21,6 +21,8 @@ import Main.Records.UserEntry;
 import Main.Records.RecordTable;
 import Main.Records.TransactionEntry;
 import Main.Currencies.Dollar;
+import Main.Records.*;
+import Main.Requests.*;
 
 public class Bank {
 
@@ -28,13 +30,15 @@ public class Bank {
     public static final Dollar fee = new Dollar(5);
 
     /* Data Members */
+    private Manager manager;
     private RecordTable<RequestEntry> history;
     private RecordTable<UserEntry> users;
     private RecordTable<TransactionEntry> transactions;
     private RecordTable<AccountEntry> accounts;
 
-    // private List<User> users;
-    // private HashMap<String,User> userMap;
+    /* Temporary User Storage */
+    private List<User> usersList;
+    private HashMap<String,User> userMap;
     // private History bankRecord;
 
     /* Constructors */
@@ -51,6 +55,10 @@ public class Bank {
     }
 
     /* Accessor Methods */
+    
+    public Manager getManager() {
+    	return manager;
+    }
 
     public RecordTable<UserEntry> getUsers() {
         return users;
@@ -121,5 +129,27 @@ public class Bank {
     public void addToHistory(RequestEntry entry) {
         this.history.getRecordEntries().add(entry);
     }
+    
+    public Manager findLoanHandler() {
+    	return manager;
+    }
+
+	public void sendLoanApplicationInformation(LoanReview review) {
+		Manager loanHandler = findLoanHandler();
+		loanHandler.addLoanToApprove(review);
+	}
+	
+	public User findUser(String username) {
+		return userMap.get(username);
+	}
+	
+	public boolean usernameExists(String username) {
+		return findUser(username) != null;
+	}
+	
+	public void addUser(User user) {
+		usersList.add(user);
+		userMap.put(user.getUsername(), user);
+	}
     
 }

@@ -61,6 +61,7 @@ public abstract class Currency {
 	
 	protected abstract void determineName();
 	protected abstract void determineExchangeRate();
+	public abstract Currency duplicate();
 	
 	private double convertFrom(Currency currency2) {
 		double multiplier = exchangeRate/currency2.exchangeRate;

@@ -14,6 +14,8 @@ import javax.swing.JButton;
 
 
 /* Internal Imports */
+import Main.Requests.*;
+
 // import Main.FancyATM;
 
 public class RegisterPage extends Page {
@@ -38,7 +40,17 @@ public class RegisterPage extends Page {
     }
 
     /* Accessor Methods */
+    public JTextField getUsernameInput() {
+        return usernameInput;
+    }
 
+    public JTextField getPasswordInput() {
+        return passwordInput;
+    }
+
+    public JButton getRegister() {
+        return register;
+    }
     /* Mutator Methods */
 
     /* Logic Methods */
@@ -51,21 +63,29 @@ public class RegisterPage extends Page {
         this.register.addActionListener(this);
 
         /* Add all components onto this Page object */
-        this.add(this.usernameInput);
-        this.add(this.passwordInput);
-        this.add(this.register);        
+       display();
     }
 
+    // if the button is pressed 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-
+    public void actionPerformed(ActionEvent e) 
+    { 
+        String s = e.getActionCommand(); 
+        System.out.println("Action Command: " + s);
+        if (s.equals("Register")) { 
+            /* Gets the username text, and the password text -> Calls FancyATM to login */
+            String username = usernameInput.getText();
+            String password = passwordInput.getText();
+            this.setCurrentRequest(new Register(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
+        } 
     }
 
     @Override
     public void display() {
-        // TODO Auto-generated method stub
-
+        /* Add all components onto this Page object */
+        this.add(this.usernameInput);
+        this.add(this.passwordInput);
+        this.add(this.register); 
     }
     
 }

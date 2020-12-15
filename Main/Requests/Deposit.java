@@ -1,6 +1,11 @@
 package Main.Requests;
 
 import Main.Bank;
+import Main.FancyATM;
+import Main.Accounts.ClientAccount;
+import Main.Accounts.DepositAccount;
+import Main.Currencies.Currency;
+import Main.Users.User;
 
 /* 
  *  Author: 
@@ -18,6 +23,13 @@ public class Deposit extends Transaction {
     /* Data Members */
 
     /* Constructors */
+	public Deposit() {
+		this(null, null);
+	}
+
+	public Deposit(DepositAccount account, Currency moneyToMove) {
+		super(account, moneyToMove);
+	}
 
     /* Accessor Methods */
 
@@ -25,10 +37,14 @@ public class Deposit extends Transaction {
 
     /* Logic Methods */
 
-    @Override
-    public int performRequest(Bank bank) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	@Override
+	public boolean canMakeTransaction() {
+		return account.canDeposit(moneyToMove);
+	}
+
+	@Override
+	public boolean makeTransaction() {
+		return account.deposit(moneyToMove);
+	}
     
 }

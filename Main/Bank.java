@@ -12,28 +12,37 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Main.Records.UserEntry;
+
 /* Internal Imports */
 import Main.Users.*;
 import Main.Utility.FileParserUtility;
+import Main.Records.RecordEntry;
+import Main.Records.UserEntry;
+import Main.Records.History;
 
 public class Bank {
 
     /* Data Members */
     private List<User> users;
     private HashMap<String,User> userMap;
+    private History bankRecord;
 
     /* Constructors */
 
     public Bank() {
         users = new ArrayList<>();
         userMap = new HashMap<>();
+        bankRecord = new History();
     }
 
     /* Accessor Methods */
 
     public List<User> getUsers() {
         return users;
+    }
+    
+    public History getBankRecord() {
+    	return bankRecord;
     }
 
     /* Mutator Methods */
@@ -80,6 +89,10 @@ public class Bank {
             }
         }
         return false;
+    }
+    
+    public void addToHistory(RecordEntry entry) {
+    	bankRecord.addEntry(entry);
     }
     
 }

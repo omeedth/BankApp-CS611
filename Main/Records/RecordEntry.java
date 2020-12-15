@@ -22,6 +22,11 @@ public abstract class RecordEntry {
 
     /* Constructors */
 
+    // TODO: Delete Later
+    public RecordEntry() {
+        /* NOTE: We DONT want this to be called. I put this here temporarily */
+    }
+
     public RecordEntry(String recordString) {
         boolean valid = validRecordString(recordString);
         if (valid) this.recordData = stringToRecord(recordString);

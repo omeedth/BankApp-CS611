@@ -14,6 +14,7 @@ import Main.Bank;
 import Main.FancyATM;
 import Main.Records.UserEntry;
 import Main.Users.Client;
+import Main.Users.User;
 import Main.Utility.FileParserUtility;
 
 public class Register extends Request {
@@ -53,7 +54,7 @@ public class Register extends Request {
             System.out.println("User Exists!");
         } else {
             System.out.println("User doesn\'t exist!");
-            Client client = new Client(bank.generateUserID(), username, password.hashCode());
+            Client client = new Client(username, password.hashCode());
             FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
         }
         setFlag(status);

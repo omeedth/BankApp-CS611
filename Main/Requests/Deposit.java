@@ -1,11 +1,5 @@
 package Main.Requests;
 
-import Main.Bank;
-import Main.FancyATM;
-import Main.Accounts.ClientAccount;
-import Main.Accounts.DepositAccount;
-import Main.Currencies.Currency;
-import Main.Users.User;
 
 /* 
  *  Author: 
@@ -17,6 +11,8 @@ import Main.Users.User;
 /* External Imports */
 
 /* Internal Imports */
+import Main.Accounts.DepositAccount;
+import Main.Currencies.Currency;
 
 public class Deposit extends Transaction {
 

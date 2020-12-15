@@ -13,7 +13,6 @@ package Main.Requests;
 /* Internal Imports */
 import Main.Bank;
 import Main.FancyATM;
-import Main.Records.RecordEntry;
 import Main.Records.RequestRecord;
 
 public abstract class Request {

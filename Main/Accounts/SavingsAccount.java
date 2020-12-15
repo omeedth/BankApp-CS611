@@ -1,8 +1,6 @@
 package Main.Accounts;
 
 
-
-
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020

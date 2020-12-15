@@ -1,6 +1,5 @@
 package Main.Records;
 
-import java.util.ArrayList;
 
 /*
  *  Creation Date: 12/10/2020
@@ -10,6 +9,7 @@ import java.util.ArrayList;
 
 /* External Imports */
 import java.util.List;
+import java.util.ArrayList;
 
 /* Internal Imports */
 

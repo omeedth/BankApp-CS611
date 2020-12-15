@@ -43,5 +43,10 @@ public class Dollar extends Currency {
 	protected void determineExchangeRate() {
 		exchangeRate = 1;
 	}
+	
+	@Override
+	public Dollar duplicate() {
+		return new Dollar(quantity);
+	}
 
 }

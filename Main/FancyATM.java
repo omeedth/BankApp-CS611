@@ -1,6 +1,5 @@
 package Main;
 
-import java.awt.event.ActionEvent;
 
 /* 
  *  Author: 
@@ -23,16 +22,11 @@ import java.awt.event.ActionEvent;
  */
 
 /* External Imports */
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /* Internal Imports */
 import Main.Display.Display;
 import Main.Display.Pages.*;
-import Main.Users.User;
 import Main.Utility.Listener;
 import Main.Requests.*;
 

@@ -1,9 +1,9 @@
 package Main.Accounts;
 
-import java.util.Date;
 
 /* 
  *  Author: 
+import java.util.Date;
  *  Creation Date: 12/4/2020
  *  Purpose: Abstract class for account types
  *  Pattern: Builder Pattern
@@ -12,6 +12,7 @@ import java.util.Date;
 
 /* External Imports */
 import java.util.HashMap;
+import java.util.Date;
 
 /* Internal Imports */
 import Main.Users.User;
@@ -19,6 +20,7 @@ import Main.Bank;
 
 public abstract class Account {
 	
+	//TODO: Accounts must be able to be loaded from file
 	private static int accountTotal = 0;
 
     /* Data Members */

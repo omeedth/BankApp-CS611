@@ -8,8 +8,10 @@ package Main.Utility;
 
 /* External Imports */
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /* Internal Imports */
+import Main.Records.RecordEntry;
 
 public class FileParserUtility {
     
@@ -37,7 +40,7 @@ public class FileParserUtility {
 
     /* Static Methods */
 
-    public List<String> getLines(String filename) {
+    public static List<String> getLines(String filename) {
         List<String> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -50,24 +53,33 @@ public class FileParserUtility {
         return records;
     }
 
+    public static void writeLine(RecordEntry recordEntry, String filename, boolean append) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, append))) {
+            bw.write(RecordEntry.convertToString(recordEntry));
+            bw.newLine();
+        } catch(IOException ioe) {
+            System.out.println("Failed to open the file!");
+        }
+    }
+
     // https://www.baeldung.com/java-csv
-    public String convertToCSV(String[] data) {
+    public static String convertToCSV(String[] data) {
         return Stream.of(data)
-          .map(this::escapeSpecialCharacters)
+          .map(FileParserUtility::escapeSpecialCharacters)
           .collect(Collectors.joining(","));
     }
 
-    public void givenDataArray_whenConvertToCSV_thenOutputCreated(List<String[]> dataLines, String csvFilename) throws IOException {
+    public static void generateCSVFromData(List<String[]> dataLines, String csvFilename) throws IOException {
         File csvOutputFile = new File(csvFilename);
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
-              .map(this::convertToCSV)
+              .map(FileParserUtility::convertToCSV)
               .forEach(pw::println);
         }
         assert(csvOutputFile.exists());
     }
 
-    public String escapeSpecialCharacters(String data) {
+    public static String escapeSpecialCharacters(String data) {
         String escapedData = data.replaceAll("\\R", " ");
         if (data.contains(",") || data.contains("\"") || data.contains("'")) {
             data = data.replace("\"", "\"\"");

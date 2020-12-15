@@ -11,8 +11,11 @@ package Main.Requests;
 
 /* Internal Imports */
 import Main.Bank;
+import Main.Records.UserEntry;
+import Main.Users.Client;
+import Main.Utility.FileParserUtility;
 
-public class Login extends Request {
+public class Register extends Request {
     
     /* Data Members */
     private String username;
@@ -20,12 +23,12 @@ public class Login extends Request {
 
     /* Constructors */
 
-    public Login(String username, String password) {
+    public Register(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Login() {
+    public Register() {
         this("","");
     }
 
@@ -42,13 +45,14 @@ public class Login extends Request {
         //        3. Sets the flag of this request to the status (same as the return)
         int status = 0;
 
-        System.out.println("Logging in...");
-        boolean userRecordExist = bank.validateUser(username, password);
+        System.out.println("Registering...");
+        boolean userRecordExist = bank.userExists(username);
         if (userRecordExist) {
-            System.out.println("Username Password Combo Exists!");
+            System.out.println("User Exists!");
         } else {
-            System.out.println("Username Password Combo doesn\'t exist!");
-            status = -1;
+            System.out.println("User doesn\'t exist!");
+            Client client = new Client(bank.generateUserID(), username, password.hashCode());
+            FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
         }
         setFlag(status);
         return status;

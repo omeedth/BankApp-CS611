@@ -8,29 +8,27 @@ package Main.Records;
 
 /* External Imports */
 import java.util.HashMap;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /* Internal Imports */
 
 public abstract class RecordEntry {
     
     /* Data Members */
-    private String[] keys;
     private HashMap<String,Object> recordData;
 
     /* Constructors */
 
     public RecordEntry(String recordString) {
-        this.keys = this.keys();
         boolean valid = validRecordString(recordString);
-        if (valid) this.recordData = stringToRecord(recordString)
+        if (valid) this.recordData = stringToRecord(recordString);
         else throw new IllegalArgumentException("Invalid Record String!");
     }
 
     /* Accessor Methods */
-
-    public String[] getKeys() {
-        return keys;
-    }
 
     public HashMap<String,Object> getRecordData() {
         return recordData;
@@ -39,10 +37,50 @@ public abstract class RecordEntry {
     /* Mutator Methods */
 
     /* Logic Methods */
-
-    public abstract String convertToString();    
+  
     public abstract boolean validRecordString(String recordString);
     public abstract HashMap<String,Object> stringToRecord(String recordString);
-    public abstract String[] keys();
+    public abstract String[] getKeys();
+
+    /* Static Methods */
+
+    public static String convertToString(RecordEntry recordEntry) {
+        List<String> resList = new ArrayList<>();
+        String listSeparator = "~";
+        String valueSeparator = ",";
+
+        String[] keys = recordEntry.getKeys();
+        HashMap<String,Object> recordData = recordEntry.getRecordData();
+        for (int i = 0; i < keys.length; i++) {
+            String key = keys[i];
+            Object value = recordData.get(key);
+
+            if (value instanceof Array) {
+                // Doesn't Work with Array Objects
+                System.out.println("Doesn\'t work with Array Objects!");
+            }
+
+            /* Depending on the Object Type we write it differently */
+            if (value instanceof Collection) {
+                // Lists, Sets, Arrays, etc.
+                List<String> objectStrs = new ArrayList<>();
+                Collection<Object> valueCollection = (Collection<Object>) value;
+
+                // Get the list 
+                for(Object obj : valueCollection) {
+                    objectStrs.add(obj.toString());
+                }
+
+                // Join List with separator string
+                resList.add(String.join(listSeparator,objectStrs));
+            } else {
+                // Individual Objects
+                resList.add(value.toString());
+            }
+
+        }
+
+        return String.join(valueSeparator, resList);
+    }
 
 }

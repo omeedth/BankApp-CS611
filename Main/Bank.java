@@ -27,7 +27,8 @@ import Main.Requests.*;
 public class Bank {
 
     /* Static/Final Members */
-    public static final Dollar fee = new Dollar(5);
+    public static Dollar fee = new Dollar(5);
+    public static double interest = 0.05;
 
     /* Data Members */
     private Manager manager;
@@ -73,7 +74,7 @@ public class Bank {
     /* Logic Methods */
 
     /**
-     * 
+     * NOTE: UNUSED
      * @return
      */
     public int generateUserID() {
@@ -150,6 +151,25 @@ public class Bank {
 	public void addUser(User user) {
 		usersList.add(user);
 		userMap.put(user.getUsername(), user);
-	}
+    }
+    
+    /* Static Methods */
+
+    /* NOTE: when setting fees and interest, save to the metadata file */
+    public static void setFee(Dollar fee) {
+        Bank.fee = fee;
+    }
+
+    public static void setInterest(double interest) {
+        Bank.interest = interest;
+    }
+
+    public static Dollar getFee() {
+        return Bank.fee;
+    }
+
+    public static double getInterest() {
+        return Bank.interest;
+    }
     
 }

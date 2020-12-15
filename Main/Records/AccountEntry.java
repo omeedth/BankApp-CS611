@@ -21,7 +21,7 @@ public class AccountEntry extends RecordEntry {
 
     /* Static/Final Members */
     public static final String filepath = "./Data/Accounts.csv";
-    public static final String[] keys = new String[] {"id","creationDate"};
+    public static final String[] keys = new String[] {"id","creationDate","currencyType","balance"};
 
     /* Data Members */
 

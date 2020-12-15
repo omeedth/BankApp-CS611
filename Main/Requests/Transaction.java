@@ -1,6 +1,5 @@
 package Main.Requests;
 
-
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -9,6 +8,8 @@ package Main.Requests;
  */
 
 /* External Imports */
+import java.util.ArrayList;
+import java.util.List;
 
 /* Internal Imports */
 import Main.Bank;
@@ -16,8 +17,9 @@ import Main.FancyATM;
 import Main.Accounts.ClientAccount;
 import Main.Accounts.DepositAccount;
 import Main.Currencies.Currency;
+import Main.Records.Recordable;
 
-public abstract class Transaction extends Request {
+public abstract class Transaction extends Request implements Recordable {
 
     /* Data Members */
 	protected DepositAccount account;
@@ -68,6 +70,16 @@ public abstract class Transaction extends Request {
     	}
     	setFlag(1);
         return 1;
+	}
+	
+	@Override
+    public String toRecordString() {
+        List<String> data = new ArrayList<>();
+
+        /* Add All Data */
+        
+
+        return String.join(",", data);
     }
     
 }

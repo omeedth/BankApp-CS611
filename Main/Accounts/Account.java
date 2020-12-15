@@ -1,6 +1,5 @@
 package Main.Accounts;
 
-
 /* 
  *  Author: 
 import java.util.Date;
@@ -12,13 +11,15 @@ import java.util.Date;
 
 /* External Imports */
 import java.util.HashMap;
+import java.util.List;
 import java.util.Date;
 
 /* Internal Imports */
 import Main.Users.User;
 import Main.Bank;
+import Main.Records.Recordable;
 
-public abstract class Account {
+public abstract class Account implements Recordable {
 	
 	//TODO: Accounts must be able to be loaded from file
 	private static int accountTotal = 0;
@@ -69,6 +70,16 @@ public abstract class Account {
 	
 	// public boolean checkPassword(String passwordInput) {
 	// 	return password.equals(passwordInput);
-	// }
+    // }
+    
+    @Override
+    public String toRecordString() {
+        List<String> data = new ArrayList<>();
+
+        /* Add All Data */
+        
+
+        return String.join(",", data);
+    }
 	
 }

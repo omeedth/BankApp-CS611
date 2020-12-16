@@ -68,6 +68,7 @@ public class RegisterPage extends Page {
     public void init() {
         /* Initialize the listeners */
         this.register.addActionListener(this);
+        this.back.addActionListener(this);
 
         /* Add all components onto this Page object */
        display();

@@ -48,6 +48,7 @@ public class Bank {
     /* Constructors */
 
     public Bank() {
+    	manager = new Manager(); //TODO: Initialize manager
         history = new RecordTable<>();
         users = new RecordTable<>();
         accounts = new RecordTable<>();
@@ -164,6 +165,15 @@ public class Bank {
 
 	public void removeFromGains(Currency amountToRemove) {
 		gains.removeMoney(amountToRemove);
+	}
+	
+	public User findUser(String username) {
+		for(User user : usersList) {
+			if(user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
 	}
     
     /* Static Methods */

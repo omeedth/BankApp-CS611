@@ -126,14 +126,14 @@ public class FancyATM implements Listener {
     }
 
     public void login(){
-        this.display.changePage(new LoginPage());
+        goToPage(new LoginPage());
     }
     // public void toPage(Pages page){
     //     this.dispaly.changePage(page);
     // }
 
     public void register() {
-        this.display.changePage(new RegisterPage());
+        goToPage(new RegisterPage());
     }
 
     public void msgReturn(JLabel msg) {
@@ -141,6 +141,10 @@ public class FancyATM implements Listener {
         this.display.currentPage.add(msg);
         this.display.setVisible(true);
     }
+
+	public void goToPage(Page page) {
+		this.display.changePage(page);
+	}
 
     // public void back(Pages page) {
     //     this.display.changePage(new page());

@@ -22,6 +22,8 @@ public abstract class LoanProcess extends Request {
 	protected Client client;
 	protected String collateral;
 	protected Currency amountRequested;
+	protected String currencyRepresentation;
+	protected String currencyName;
 	
 
     /* Constructors */
@@ -33,6 +35,8 @@ public abstract class LoanProcess extends Request {
 		this.client = client;
 		this.collateral = collateral;
 		this.amountRequested = amountRequested;
+		this.currencyRepresentation = null;
+		this.currencyName = null;
 	}
 
 
@@ -49,6 +53,14 @@ public abstract class LoanProcess extends Request {
 		return amountRequested;
 	}
 
+	public String getCurrencyRepresentation() {
+		return currencyRepresentation;
+	}
+
+	public String getCurrencyName() {
+		return currencyName;
+	}
+
 
     /* Mutator Methods */
 	public void setClient(Client client) {
@@ -61,6 +73,14 @@ public abstract class LoanProcess extends Request {
 
 	public void setAmountRequested(Currency amountRequested) {
 		this.amountRequested = amountRequested;
+	}
+
+	public void setCurrencyRepresentation(String currencyRepresentation) {
+		this.currencyRepresentation = currencyRepresentation;
+	}
+
+	public void setCurrencyName(String currencyName) {
+		this.currencyName = currencyName;
 	}
 
 

@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Main.Display.Pages.LoanApplicationPage;
 /* Internal Imports */
 // import Main.FancyATM;
 import Main.Display.Pages.LoginPage;

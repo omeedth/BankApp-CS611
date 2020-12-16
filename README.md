@@ -80,11 +80,15 @@ public static void main(String args[]) {
 
 
 ## Display Classes 
+***Display.java*** - Display class for front end implements Listener and Notifier to listen to and notify all GUI features. Main helper class for front end display function.
 
 ---
 
 
 ## Display.Pages Classes
+***Page package: Page.java*** - Abstract class for Page package with basic page design and actionPerformed method for listening from back-end.
+*** *Page.java*** - All files with page.java suffix extend Page.java, representing for corresponded user interfaces.
+***UserPage.java*** - Client page where all the functions as open/close account, transactions, loan application, and deposit/withdraw show. 
 
 ---
 

@@ -5,6 +5,7 @@ import Main.FancyATM;
 import Main.Accounts.Account;
 import Main.Accounts.ClientAccount;
 import Main.Currencies.Currency;
+import Main.Display.Pages.UserPage;
 import Main.Users.Client;
 
 public class AccountOpening extends Request {
@@ -39,7 +40,7 @@ public class AccountOpening extends Request {
 		this.startingAmount = startingAmount;
 	}
 	
-	public void setUser(Client client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
@@ -53,8 +54,11 @@ public class AccountOpening extends Request {
 		}
 		client.addAccount(accountToOpen);
 		accountToOpen.setAccountHolder(client);
+		accountToOpen.setAccountBalance(startingAmount.duplicate());
 		accountToOpen.getAccountBalance().removeMoney(Bank.fee);
+		accountToOpen.setBank(atm.getBank());
 		atm.getBank().addToGains(Bank.fee);
+		atm.goToPage(new UserPage(client));
 		setFlag(1);
 		return 1;
 	}

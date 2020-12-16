@@ -12,7 +12,7 @@ import Main.Users.User;
 
 public class LoanApplicationPage extends Page {
 
-    private JTextField amountInput, collateralInput;
+    private LabeledTextField amountInput, collateralInput;
     private JComboBox currencyInput;
     private JButton applyButton, backButton;
     private JLabel description;
@@ -23,9 +23,10 @@ public class LoanApplicationPage extends Page {
 	}
 	
 	public LoanApplicationPage(Client client) {
+		super();
 		this.client = client;
-        amountInput = new JTextField(5);
-        collateralInput = new JTextField(5);
+        amountInput = new LabeledTextField("Starting Amount: ", 5);
+        collateralInput = new LabeledTextField("Collateral: ", 5);
         currencyInput = new JComboBox(Currency.usableCurrencies) ;
         applyButton = new JButton("Apply for Loan");
         backButton = new JButton("Back");
@@ -46,7 +47,7 @@ public class LoanApplicationPage extends Page {
 			application.setCurrencyRepresentation(amountStr);
 			application.setCurrencyName(currencyStr);
 			application.setCollateral(collateralStr);
-			application.setClient(client); //TODO: Replace with the actual client
+			application.setClient(client);
 			this.setCurrentRequest(application);
 		}
 		else if(s.equals("Back")) {
@@ -56,12 +57,12 @@ public class LoanApplicationPage extends Page {
 
 	@Override
 	public void display() {
-        this.add(this.amountInput);
+        this.add(this.description); 
         this.add(this.collateralInput);
+        this.add(this.amountInput);
         this.add(this.currencyInput);
         this.add(this.applyButton);
         this.add(this.backButton);
-        this.add(this.description); 
 	}
 
 	public Client getClient() {

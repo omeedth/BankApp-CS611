@@ -125,4 +125,9 @@ public class LoanAccount extends ClientAccount {
 		accountBalance.multiplyQuantity(1+Bank.loanInterest);
 	}
 
+	@Override
+	public String getAccountType() {
+		return "Loan";
+	}
+
 }

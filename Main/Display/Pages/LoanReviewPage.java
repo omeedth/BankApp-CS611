@@ -15,6 +15,13 @@ public class LoanReviewPage extends Page {
 	
 	public LoanReviewPage() {
 		reviewPanels = new ArrayList<JPanel>();
+		display();
+	}
+	
+	public LoanReviewPage(Manager manager) {
+		super();
+		this.manager = manager;
+		reviewPanels = new ArrayList<JPanel>();
 		for(LoanReview r : manager.getUncheckedLoans()) {
 			reviewPanels.add(createReviewPanel(r));
 		}
@@ -23,9 +30,9 @@ public class LoanReviewPage extends Page {
 	
 	public JPanel createReviewPanel(LoanReview review) {
 		JPanel p = new JPanel();
-		p.add(new JLabel(review.getClient().getUsername()));
-		p.add(new JLabel(review.getCollateral()));
-		p.add(new JLabel(String.valueOf(review.getAmountRequested().getQuantity())));
+		p.add(new JLabel("User: " + review.getClient().getUsername()));
+		p.add(new JLabel("   Offered collateral: " + review.getCollateral()));
+		p.add(new JLabel("   Amount requested: " + String.valueOf(review.getAmountRequested().getQuantity())));
 		return p;
 	}
 	

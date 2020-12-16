@@ -56,8 +56,16 @@ public class LoanApplication extends LoanProcess {
 				return -1;
     		}
     	}
-        LoanReview review = new LoanReview(client, collateral, amountRequested);
-        Bank bank = atm.getBank();
+    	if(collateral.strip().length() == 0) {
+    		System.out.println("No collateral was entered");
+    		atm.goToPage(new LoanApplicationPage());
+    		JLabel msg = new JLabel("Please make sure that you enter collateral");
+    		atm.msgReturn(msg);
+    		setFlag(-1);
+    		return -1;
+    	}
+    	LoanReview review = new LoanReview(client, collateral, amountRequested);
+    	Bank bank = atm.getBank();
     	bank.sendLoanApplicationInformation(review);
     	setFlag(1);
         return 1;

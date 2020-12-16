@@ -69,5 +69,10 @@ public class SecurityAccount extends ClientAccount {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getAccountType() {
+		return "Security";
+	}
     
 }

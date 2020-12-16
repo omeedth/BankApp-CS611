@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 
 /* Internal Imports */
 import Main.Bank;
+import Main.Users.Client;
 import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
@@ -80,7 +81,13 @@ public class Login extends Request {
         	System.out.println("Username Password Combo Exists!");
         	status = 1;
 			// username pwd exist and match, go to user page
-			atm.getDisplay().changePage(new UserPage(bank.findClient(username)));
+        	Client client = bank.findClient(username);
+			if(client == null) { //TODO: Temporary, until userList works
+				client = new Client();
+				client.setUsername(username);
+				client.setHashedPassword(0);
+			}
+			atm.getDisplay().changePage(new UserPage(client));
         } else {
         	System.out.println("Username Password Combo doesn\'t exist!");
         	status = -1;

@@ -11,8 +11,6 @@ package Main.Display.Pages;
 
 /* External Imports */
 import java.awt.event.ActionEvent;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -52,7 +50,6 @@ public class LoginPage extends Page {
     /* Constructors */
 
     public LoginPage() {
-    	super();
         usernameInput = new JTextField("Username");
 
         passwordInput = new JTextField("Password");
@@ -89,7 +86,6 @@ public class LoginPage extends Page {
         // this.passwordInput.addActionListener(this);
         this.login.addActionListener(this);   
         this.register.addActionListener(this);
-        this.loginManagerButton.addActionListener(this);
         display();    
     }
 
@@ -120,8 +116,6 @@ public class LoginPage extends Page {
             // String username = usernameInput.getText();
             // String password = passwordInput.getText();
             this.setCurrentRequest(new Register()); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
-        } else if(s.equals("Login Manager")) {
-        	this.setCurrentRequest(new Login()); //TODO: This is a catastrophe
         }
     }
 

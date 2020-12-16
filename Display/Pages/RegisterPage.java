@@ -32,7 +32,6 @@ public class RegisterPage extends Page {
     /* Constructors */
 
     public RegisterPage() {
-    	super();
         this.usernameInput = new JTextField("Username");
 
         this.passwordInput = new JTextField("Password");
@@ -69,7 +68,6 @@ public class RegisterPage extends Page {
     public void init() {
         /* Initialize the listeners */
         this.register.addActionListener(this);
-        this.back.addActionListener(this);
 
         /* Add all components onto this Page object */
        display();
@@ -89,7 +87,7 @@ public class RegisterPage extends Page {
         } else if (s.equals("Back")){
             /* Back to login page */
             System.out.println("change request to login!");
-            this.setCurrentRequest(new PageChange(new LoginPage())); // change page back to Login
+            this.setCurrentRequest(new Login()); // change page back to Login
         }
     }
 

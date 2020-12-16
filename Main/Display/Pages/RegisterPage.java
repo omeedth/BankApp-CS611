@@ -88,7 +88,7 @@ public class RegisterPage extends Page {
         } else if (s.equals("Back")){
             /* Back to login page */
             System.out.println("change request to login!");
-            this.setCurrentRequest(new Login()); // change page back to Login
+            this.setCurrentRequest(new PageChange(new LoginPage())); // change page back to Login
         }
     }
 

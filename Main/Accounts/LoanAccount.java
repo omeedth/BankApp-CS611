@@ -113,4 +113,9 @@ public class LoanAccount extends ClientAccount {
 		return payBackLoan(money);
 	}
 
+	@Override
+	public void addInterest(double interestRate) {
+		accountBalance.multiplyQuantity(1+interestRate);
+	}
+
 }

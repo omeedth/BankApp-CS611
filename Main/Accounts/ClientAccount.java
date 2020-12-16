@@ -73,4 +73,6 @@ public abstract class ClientAccount extends Account {
 		return receiveSuccess;
 	}
 
+	public abstract void addInterest(double interestRate);
+
 }

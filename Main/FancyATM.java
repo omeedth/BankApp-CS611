@@ -36,12 +36,18 @@ public class FancyATM implements Listener {
     private Bank bank;
     private Display display;
     private boolean isRunning;
+    private Updater updater;
+    private Thread updaterThread;
 
     /* Constructors */
 
-    public FancyATM() {
+	public FancyATM() {
         this.display = new Display();
         this.bank = new Bank();        
+        updater = new Updater(this);
+        updater.setInterestInterval(10000);
+        updaterThread = new Thread(updater);
+        updaterThread.start();
     }
 
     /* Accessor Methods */
@@ -53,6 +59,11 @@ public class FancyATM implements Listener {
     public Display getDisplay() {
         return display;
     }
+    
+    public long getLastExitTime() {
+    	//TODO: Placeholder
+    	return -1; //Replace this line entirely
+    }
 
     /* Mutator Methods */
 
@@ -63,6 +74,10 @@ public class FancyATM implements Listener {
     public void stopRunning() {
         this.isRunning = false;
     }
+
+    public boolean isRunning() {
+		return isRunning;
+	}
 
     /* Logic Methods */
 

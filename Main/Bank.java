@@ -20,6 +20,7 @@ import Main.Records.RequestEntry;
 import Main.Records.UserEntry;
 import Main.Records.RecordTable;
 import Main.Records.TransactionEntry;
+import Main.Accounts.ClientAccount;
 import Main.Currencies.Dollar;
 import Main.Records.*;
 import Main.Requests.*;
@@ -63,6 +64,11 @@ public class Bank {
 
     public RecordTable<UserEntry> getUsers() {
         return users;
+    }
+    
+    public List<ClientAccount> getClientAccounts() {
+    	//TODO: Placeholder
+    	return new ArrayList<ClientAccount>();
     }
     
     // public RecordTable<TransactionEntry> getTransactions() {

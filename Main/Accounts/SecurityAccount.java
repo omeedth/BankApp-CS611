@@ -57,5 +57,11 @@ public class SecurityAccount extends ClientAccount {
 	public void determineMinAmount() {
 		minAmount = 0;
 	}
+
+	@Override
+	public void addInterest(double interestRate) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

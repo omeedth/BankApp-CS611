@@ -14,6 +14,7 @@ import Main.Bank;
 import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
+import Main.Display.Pages.LoginPage;
 
 public class Login extends Request {
     
@@ -71,7 +72,6 @@ public class Login extends Request {
         //        2. Returns status variable whether or not it's okay to change page, etc.
         //        3. Sets the flag of this request to the status (same as the return)
         int status = 0;
-
         System.out.println("Logging in...");
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.validateUser(username, password);

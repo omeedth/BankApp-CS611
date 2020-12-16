@@ -23,12 +23,15 @@ package Main;
 
 /* External Imports */
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /* Internal Imports */
 import Main.Display.Display;
 import Main.Display.Pages.*;
 import Main.Utility.Listener;
 import Main.Requests.*;
+
 
 public class FancyATM implements Listener {
 
@@ -105,14 +108,20 @@ public class FancyATM implements Listener {
             int status = ((Request) obj).performRequest(this);
             
             if (obj instanceof Login) {
-                // Do login
+                // username pwd exists and matches, go to user page
                 if (status == 0) {
                     login();
+                }
+                else if(status == -1){
+                    // stay in page
+                    loginFail();
+                    
                 }                
             }
-            // if (obj instanceof Register){
-            //     register();
-            // }
+            if (obj instanceof Register){
+                // go to register page
+                register();
+            }
 
         }
     }
@@ -121,9 +130,15 @@ public class FancyATM implements Listener {
         this.display.changePage(new RegisterPage());
     }
 
-    // public void register() {
-    //     System.out.println("Registering for new user...");
-    //     this.display.changePage(new UserPage();)
-    // }
+    public void loginFail() {
+        JLabel msgReturn = new JLabel("Username Password Combo doesn\'t exist! Please register for account!");
+        // this.display.changePage(new LoginPage());
+        this.display.currentPage.add(msgReturn);
+        this.display.setVisible(true);
+    }
+
+    public void register() {
+        this.display.changePage(new RegisterPage());
+    }
 
 }

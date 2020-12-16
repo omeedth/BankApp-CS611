@@ -23,8 +23,8 @@ public class SecurityAccount extends ClientAccount {
 
 	/* Constructors */
 
-	public SecurityAccount(AccountEntry accountEntry) throws ParseException {
-		super(accountEntry);
+	public SecurityAccount(AccountEntry accountEntry, Client accountHolder) throws ParseException {
+		super(accountEntry,accountHolder);
 	} 
 
 	public SecurityAccount(Currency startingBalance) {

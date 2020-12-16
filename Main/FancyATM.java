@@ -34,6 +34,11 @@ import Main.Currencies.Dollar;
 /* Internal Imports */
 import Main.Display.Display;
 import Main.Display.Pages.*;
+import Main.Records.AccountEntry;
+import Main.Records.RecordTable;
+import Main.Records.RequestEntry;
+import Main.Records.TransactionEntry;
+import Main.Records.UserEntry;
 import Main.Utility.FileParserUtility;
 import Main.Utility.Listener;
 import Main.Requests.*;
@@ -197,6 +202,19 @@ public class FancyATM implements Listener {
         } catch(IOException ioe) {
             System.out.println("Failed to write metadata into file! ABORTING...");
         }
+
+        System.out.println("Current Bank Records!\n\nHistory: " + bank.getHistory() + "\nAccounts: " + bank.getAccounts() + "\nTransactions: " + bank.getTransactions() + "\nUsers: " + bank.getUsers() + "\n");
+
+        bank.getHistory().writeToFile(RequestEntry.filepath);
+        bank.getTransactions().writeToFile(TransactionEntry.filepath);
+        bank.getAccounts().writeToFile(AccountEntry.filepath);
+
+        RecordTable<UserEntry> updatedUsers = new RecordTable<>();
+        for (User user : bank.getUsersList()) {
+            updatedUsers.getRecordEntries().add(new UserEntry(user));
+            System.out.println(user);
+        }
+        updatedUsers.writeToFile(UserEntry.filepath);        
 
     }
 

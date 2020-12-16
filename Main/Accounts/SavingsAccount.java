@@ -35,8 +35,8 @@ public class SavingsAccount extends DepositAccount {
 		super(accountHolder,startingBalance);
 	}
 
-	public SavingsAccount(AccountEntry accountEntry) throws ParseException {
-		super(accountEntry);
+	public SavingsAccount(AccountEntry accountEntry, Client accountHolder) throws ParseException {
+		super(accountEntry,accountHolder);
 		totalWithdraws = 0;
 		withdrawsRemaining = 0;
 	}

@@ -33,8 +33,8 @@ public abstract class DepositAccount extends ClientAccount {
 		super(accountHolder, startingBalance);
 	}
 
-	public DepositAccount(AccountEntry accountEntry) throws ParseException {
-		super(accountEntry);
+	public DepositAccount(AccountEntry accountEntry, Client accountHolder) throws ParseException {
+		super(accountEntry, accountHolder);
 	}
 
     /* Accessor Methods */

@@ -53,10 +53,10 @@ public abstract class ClientAccount extends Account {
 		determineMinAmount();
 	}
 
-	public ClientAccount(AccountEntry accountEntry) throws ParseException {
-		super((int) accountEntry.getRecordData().get("id"), new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate"))));
-		accountHolder = (Client) accountEntry.getUser();
-		accountBalance = Currency.getCurrency((Double) accountEntry.getRecordData().get("balance"), (String) accountEntry.getRecordData().get("currencyType"));
+	public ClientAccount(AccountEntry accountEntry, Client accountUser) throws ParseException {
+		super(Integer.parseInt((String) accountEntry.getRecordData().get("id")), new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate")))); // new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate")))
+		accountHolder = accountUser;
+		accountBalance = Currency.getCurrency(Double.parseDouble((String) accountEntry.getRecordData().get("balance")), (String) accountEntry.getRecordData().get("currencyType"));
 		currencyType = (String) accountEntry.getRecordData().get("currencyType");
 		determineMinAmount();
 	}
@@ -98,6 +98,11 @@ public abstract class ClientAccount extends Account {
 		}
 		boolean receiveSuccess = targetAccount.receiveTransfer(money);
 		return receiveSuccess;
+	}
+
+	@Override
+	public String toString() {
+		return "<ClientAccount: " + this.getClass().getSimpleName() + ", ID: " + getAccountID() + ", Time Created: " + getDateCreated() + ", Account Balance: " + getAccountBalance() + ", Currency Type: " + getCurrencyType() + ", Account Holder: " + getAccountHolder().getId() + ">";
 	}
 
 }

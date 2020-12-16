@@ -14,6 +14,8 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import Main.Users.Client;
+import Main.Users.Manager;
 /* Internal Imports */
 import Main.Users.User;
 import Main.Utility.FileParserUtility;
@@ -26,8 +28,7 @@ public class AccountEntry extends RecordEntry {
 
     /* Static/Final Members */
     public static final String filepath = "./Data/Accounts.csv";
-    public static final String[] keys = new String[] { "id", "creationDate", "accountType", "userId", "currencyType",
-            "balance" };
+    public static final String[] keys = new String[] { "id", "creationDate", "accountType", "userId", "currencyType","balance" };
 
     /* Data Members */
 
@@ -47,47 +48,52 @@ public class AccountEntry extends RecordEntry {
 
     /* Logic Methods */
 
-    public Account getAccount() {
+    public Account getAccount(User accountUser) {
         Account account = null;
+
+        System.out.println("Account Type: " + this.getRecordData().get("accountType"));
 
         HashMap<String, Object> recordData = this.getRecordData();
         if (recordData.get("accountType").equals(CheckingsAccount.class.getSimpleName())) {
+            System.out.println("Creating Checkings Account From DataBase...");
             try {
-                account = new CheckingsAccount(this);
+                account = new CheckingsAccount(this, (Client) accountUser);
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else if (recordData.get("accountType").equals(SavingsAccount.class.getSimpleName())) {
             try {
-                account = new SavingsAccount(this);
+                account = new SavingsAccount(this, (Client) accountUser);
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else if (recordData.get("accountType").equals(AdministrativeAccount.class.getSimpleName())) {
             try {
-                account = new AdministrativeAccount(this);
+                account = new AdministrativeAccount(this, (Manager) accountUser);
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
 
+        System.out.println("Account: " + account);
+
         return account;
     }
 
-    public User getUser() {
-        HashMap<String,Object> recordData = this.getRecordData();
-        List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
-        for (String line : lines) {
-            UserEntry userEntry = new UserEntry(line);
-            if(userEntry.getRecordData().get("id").equals(recordData.get("userId"))) {
-                return userEntry.getUser();
-            }
-        }
-        return null;
-    }
+    // public User getUser() {
+    //     HashMap<String,Object> recordData = this.getRecordData();
+    //     List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
+    //     for (String line : lines) {
+    //         UserEntry userEntry = new UserEntry(line);
+    //         if(userEntry.getRecordData().get("id").equals(recordData.get("userId"))) {
+    //             return userEntry.getUser(); // INFINITE LOOP
+    //         }
+    //     }
+    //     return null;
+    // }
 
     @Override
     public String[] getKeys() {

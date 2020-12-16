@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /* Internal Imports */
 import Main.Users.User;
 import Main.Utility.FileParserUtility;
+import Main.Accounts.Account;
 import Main.Users.Client;
 import Main.Users.Manager;
 
@@ -53,16 +54,26 @@ public class UserEntry extends RecordEntry {
     }
 
     public User getUser() {
+        System.out.println("Getting User...");
         HashMap<String,Object> recordData = this.getRecordData();
         if (recordData.get("accountType").equals("Client")) {
             Client client = new Client(Integer.parseInt((String) recordData.get("id")), (String) recordData.get("name"), (String) recordData.get("username"), Integer.parseInt((String) recordData.get("hashedPassword")));
 
             /* Search for accounts this User has */
             List<String> accounts = FileParserUtility.getLines(AccountEntry.filepath);
-            for (String accountId : ((String) recordData.get("accounts")).split("~")) {                
-                int index = accounts.indexOf(accountId);
-                if (index != -1) {
-                    client.addAccount(new AccountEntry(accounts.get(index)).getAccount());
+            for (String accountId : ((String) recordData.get("accounts")).split("~")) {
+                System.out.println("Record Data: " + recordData + ", Account ID: " + accountId);   
+
+                int accountIndex = -1;    
+                try {
+                    accountIndex = Integer.parseInt(accountId);
+                } catch(Exception e) {
+
+                }  
+
+                if (accountIndex > -1 && accountIndex < accounts.size()) {
+                    Account account = new AccountEntry(accounts.get(accountIndex)).getAccount(client);
+                    client.addAccount(account);                    
                 }
             }
 

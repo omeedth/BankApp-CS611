@@ -28,8 +28,8 @@ public class AdministrativeAccount extends ManagerAccount {
         super(accountHolder);
     }
 
-	public AdministrativeAccount(AccountEntry accountEntry) throws ParseException {
-		super(accountEntry);
+	public AdministrativeAccount(AccountEntry accountEntry, Manager accountHolder) throws ParseException {
+		super(accountEntry,accountHolder);
 	}
 
     /* Accessor Methods */

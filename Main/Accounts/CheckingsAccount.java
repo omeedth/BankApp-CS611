@@ -34,8 +34,8 @@ public class CheckingsAccount extends DepositAccount {
 		super(accountHolder,startingBalance);
 	}
 
-	public CheckingsAccount(AccountEntry accountEntry) throws ParseException {
-		super(accountEntry);
+	public CheckingsAccount(AccountEntry accountEntry, Client accountHolder) throws ParseException {
+		super(accountEntry, accountHolder);
 	}
 
     /* Accessor Methods */

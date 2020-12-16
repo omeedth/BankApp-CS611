@@ -49,6 +49,7 @@ public abstract class Account implements Recordable {
 		bank = null;
 		accountID = id;
 		dateCreated = creationDate;
+		System.out.println("Account Created!");
 	}
 
     /* Accessor Methods */

@@ -55,7 +55,10 @@ public class Register extends Request {
         } else {
             System.out.println("User doesn\'t exist!");
             Client client = new Client(username, password.hashCode());
-            FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
+            UserEntry userEntry = new UserEntry(client);
+            atm.getBank().getUsersList().add(client);
+            atm.getBank().getUsers().getRecordEntries().add(userEntry);
+            FileParserUtility.writeLine(userEntry, UserEntry.filepath, true);
         }
         setFlag(status);
         return status;

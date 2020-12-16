@@ -48,13 +48,13 @@ public class Bank {
         history = new RecordTable<>("History");
         users = new RecordTable<>("Users");
         accounts = new RecordTable<>("Accounts");
-        transactions = new RecordTable<>("Transactions");
+        transactions = new RecordTable<>("Transactions");        
 
-        init();
-
-        // users = new ArrayList<>();
+        usersList = new ArrayList<>();
         // userMap = new HashMap<>();
         // bankRecord = new History();
+
+        init();
     }
 
     /* Accessor Methods */
@@ -65,6 +65,22 @@ public class Bank {
 
     public RecordTable<UserEntry> getUsers() {
         return users;
+    }
+
+    public RecordTable<RequestEntry> getHistory() {
+        return history;
+    }
+
+    public RecordTable<AccountEntry> getAccounts() {
+        return accounts;
+    }
+
+    public RecordTable<TransactionEntry> getTransactions() {
+        return transactions;
+    }
+
+    public List<User> getUsersList() {
+        return usersList;
     }
     
     // public RecordTable<TransactionEntry> getTransactions() {
@@ -92,11 +108,17 @@ public class Bank {
             transactions.getRecordEntries().add(new TransactionEntry(line));
         }
 
-        for (String line : FileParserUtility.getLines(UserEntry.filepath)) {
-            users.getRecordEntries().add(new UserEntry(line));
+        List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);            
+            UserEntry userEntry = new UserEntry(line);            
+            users.getRecordEntries().add(userEntry);
+
+            /* Fill User List */                     
+            usersList.add(userEntry.getUser());
         }
 
-        System.out.println("Initialized!\n\nHistory: " + history + "\nAccounts: " + accounts + "\nTransactions: " + transactions + "\nUsers: " + users + "\n");
+        System.out.println("Initialized!\n\nHistory: " + history + "\nAccounts: " + accounts + "\nTransactions: " + transactions + "\nUsers: " + users + "\nUsers List: " + usersList);
 
     }
 
@@ -145,13 +167,21 @@ public class Bank {
     public User getUserFromCredentials(String username, String password) {
         User result = null;
 
-        List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
-        for (String line : lines) {
-            UserEntry userEntry = new UserEntry(line);
-            HashMap<String,Object> userRecordData = userEntry.getRecordData();
-            String hashedPassword = Integer.toString(password.hashCode());
-            if (username.equalsIgnoreCase(userRecordData.getOrDefault("username", "").toString()) && hashedPassword.equalsIgnoreCase(userRecordData.getOrDefault("hashedPassword", "").toString())) {
-                result = userEntry.getUser();
+        // List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
+        // for (String line : lines) {
+        //     UserEntry userEntry = new UserEntry(line);
+        //     HashMap<String,Object> userRecordData = userEntry.getRecordData();
+        //     String hashedPassword = Integer.toString(password.hashCode());
+        //     if (username.equalsIgnoreCase(userRecordData.getOrDefault("username", "").toString()) && hashedPassword.equalsIgnoreCase(userRecordData.getOrDefault("hashedPassword", "").toString())) {
+        //         result = userEntry.getUser();
+        //         break;
+        //     }
+        // }
+
+        String hashedPassword = Integer.toString(password.hashCode());
+        for (User user : usersList) {
+            if (username.equalsIgnoreCase(user.getUsername()) && hashedPassword.equalsIgnoreCase(Integer.toString(user.getHashedPassword()))) { 
+                result = user;
                 break;
             }
         }

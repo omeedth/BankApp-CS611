@@ -86,7 +86,9 @@ public class AccountOpening extends Request {
 
 		if (accountToOpen != null) {
 			accountUser.getAccounts().add(accountToOpen);
-			FileParserUtility.writeLine(new AccountEntry(accountToOpen), AccountEntry.filepath, true);
+			AccountEntry accountEntry = new AccountEntry(accountToOpen);
+			atm.getBank().getAccounts().getRecordEntries().add(accountEntry);
+			FileParserUtility.writeLine(accountEntry, AccountEntry.filepath, true);
 		}
 
 		return status;

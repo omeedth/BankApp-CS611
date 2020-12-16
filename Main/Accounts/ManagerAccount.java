@@ -33,9 +33,9 @@ public abstract class ManagerAccount extends Account {
 		this.accountHolder = accountHolder;
 	}
 
-	public ManagerAccount(AccountEntry accountEntry) throws ParseException {
-		super((int) accountEntry.getRecordData().get("id"), new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate"))));
-		accountHolder = (Manager) accountEntry.getUser();
+	public ManagerAccount(AccountEntry accountEntry, Manager accountHolder) throws ParseException {
+		super((int) accountEntry.getRecordData().get("id"), new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate")))); // new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate")))
+		accountHolder = accountHolder;
 	}
 
     /* Accessor Methods */

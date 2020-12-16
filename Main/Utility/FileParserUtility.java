@@ -64,6 +64,14 @@ public class FileParserUtility {
         }             
     }
 
+    public static void writeRecords(List<? extends RecordEntry> records, String filename, boolean append) { 
+        List<String> lines = new ArrayList<>();       
+        for(RecordEntry record: records) {
+            lines.add(RecordEntry.convertToString(record));
+        }     
+        writeLines(lines, filename, append);       
+    }
+
     // public static void writeLines(List<RecordEntry> recordEntries, String filename, boolean append) {
     //     List<String> lines = new ArrayList<>();
     //     for(RecordEntry recordEntry : recordEntries) {

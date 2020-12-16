@@ -8,6 +8,9 @@ package Main.Records;
 
 /* External Imports */
 import java.util.List;
+
+import Main.Utility.FileParserUtility;
+
 import java.util.ArrayList;
 
 /* Internal Imports */
@@ -43,6 +46,10 @@ public class RecordTable<T extends RecordEntry> {
     /* Mutator Methods */
 
     /* Logic Methods */
+
+    public void writeToFile(String filename) {
+        FileParserUtility.writeRecords(this.recordEntries, filename, false);
+    }
 
     @Override
     public String toString() {

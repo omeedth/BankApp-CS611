@@ -49,7 +49,7 @@ public class LoanApplication extends LoanProcess {
     		}
     		catch(Exception e) {
 				System.out.println("The amount of money is not an int");
-				atm.goToPage(new LoanApplicationPage());
+				atm.goToPage(new LoanApplicationPage(client));
 				JLabel msg = new JLabel("Please make sure that the amount of money is an integer.");
 				atm.msgReturn(msg);
 				setFlag(-1);
@@ -58,7 +58,7 @@ public class LoanApplication extends LoanProcess {
     	}
     	if(collateral.strip().length() == 0) {
     		System.out.println("No collateral was entered");
-    		atm.goToPage(new LoanApplicationPage());
+    		atm.goToPage(new LoanApplicationPage(client));
     		JLabel msg = new JLabel("Please make sure that you enter collateral");
     		atm.msgReturn(msg);
     		setFlag(-1);

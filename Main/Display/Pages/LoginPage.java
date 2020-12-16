@@ -2,6 +2,8 @@ package Main.Display.Pages;
 
 
 
+import java.awt.Dimension;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -54,8 +56,10 @@ public class LoginPage extends Page {
     public LoginPage() {
     	super();
         usernameInput = new JTextField("Username");
+        usernameInput.setMaximumSize(new Dimension(200,30));
 
         passwordInput = new JTextField("Password");
+        passwordInput.setMaximumSize(new Dimension(200,30));
 
         login = new JButton("Login");
         //
@@ -128,6 +132,7 @@ public class LoginPage extends Page {
     @Override
     public void display() {
         /* Add all components onto this Page object */
+    	this.setLayout(new BoxLayout(this, 1));
         this.add(this.headerLabel);
         this.add(this.usernameInput);
         this.add(this.passwordInput);

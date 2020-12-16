@@ -46,7 +46,7 @@ public class UserPage extends Page {
         loanRequestButton = new JButton("Request Loan");
         logoutButton = new JButton("Logout");
         goToAccount = new JButton("Go to Account");
-        openAccount = new JButton("Open Account");
+        openAccount = new JButton("Open New Account");
         targetAccountBox = new LabeledTextField("Account ID: ", 5);
         loanRequestButton.addActionListener(this);
         logoutButton.addActionListener(this);
@@ -88,7 +88,7 @@ public class UserPage extends Page {
     		String accountStr = targetAccountBox.getText();
     		setCurrentRequest(new JumpToAccount(client, accountStr));
     	}
-    	else if(s.equals("Open Account")) {
+    	else if(s.equals("Open New Account")) {
     		setCurrentRequest(new PageChange(new OpenAccountPage(client)));
     	}
     }

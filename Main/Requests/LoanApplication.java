@@ -18,6 +18,7 @@ import Main.FancyATM;
 import Main.Currencies.Currency;
 import Main.Currencies.Dollar;
 import Main.Display.Pages.LoanApplicationPage;
+import Main.Display.Pages.LoanReviewPage;
 import Main.Users.Client;
 
 public class LoanApplication extends LoanProcess {

@@ -17,6 +17,7 @@ import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
 import Main.Display.Pages.LoginPage;
+import Main.Display.Pages.UserPage;
 
 public class Login extends Request {
     
@@ -79,7 +80,7 @@ public class Login extends Request {
         	System.out.println("Username Password Combo Exists!");
         	status = 1;
 			// username pwd exist and match, go to user page
-			atm.getDisplay().changePage(new LoginPage());
+			atm.getDisplay().changePage(new UserPage(bank.findClient(username)));
         } else {
         	System.out.println("Username Password Combo doesn\'t exist!");
         	status = -1;

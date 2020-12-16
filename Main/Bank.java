@@ -54,6 +54,7 @@ public class Bank {
         accounts = new RecordTable<>();
         transactions = new RecordTable<>();
         gains = new Dollar();
+        usersList = new ArrayList<User>();
 
         // users = new ArrayList<>();
         // userMap = new HashMap<>();
@@ -172,6 +173,17 @@ public class Bank {
 			if(user.getUsername().equals(username)) {
 				return user;
 			}
+		}
+		return null;
+	}
+
+	public Client findClient(String username) {
+		User user = findUser(username);
+		if(user == null) {
+			return null;
+		}
+		if(user instanceof Client) {
+			return (Client)user;
 		}
 		return null;
 	}

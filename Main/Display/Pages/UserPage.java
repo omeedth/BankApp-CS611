@@ -14,7 +14,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-
+import Main.Requests.Login;
+import Main.Requests.PageChange;
 /* Internal Imports */
 import Main.Users.*;
 
@@ -24,18 +25,27 @@ public class UserPage extends Page {
     private static final long serialVersionUID = 3627423803935650519L;
 
     /* Data Members */
-    private User user;
+    private Client client;
+    private JButton loanRequestButton, logoutButton;
 
     /* Constructors */
+    public UserPage() {
+    	this(null);
+    }
 
-    public UserPage(User user) {
-        this.user = user;
+    public UserPage(Client client) {
+        this.client = client;
+        loanRequestButton = new JButton("Request Loan");
+        logoutButton = new JButton("Logout");
+        loanRequestButton.addActionListener(this);
+        logoutButton.addActionListener(this);
+        display();
     }
 
     /* Accessor Methods */
 
     public User getUser() {
-        return user;
+        return client;
     }    
 
     /* Mutator Methods */
@@ -45,13 +55,19 @@ public class UserPage extends Page {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-
+    	String s = e.getActionCommand();
+    	if(s.equals("Request Loan")) {
+    		setCurrentRequest(new PageChange(new LoanApplicationPage(client)));
+    	}
+    	else if(s.equals("Logout")) {
+    		setCurrentRequest(new PageChange(new LoginPage()));
+    	}
     }
 
     @Override
     public void display() {
-        // TODO Auto-generated method stub
-
+    	add(loanRequestButton);
+    	add(logoutButton);
     }
     
 }

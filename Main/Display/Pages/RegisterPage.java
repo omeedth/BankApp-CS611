@@ -68,7 +68,7 @@ public class RegisterPage extends Page {
     public void init() {
         /* Initialize the listeners */
         this.register.addActionListener(this);
-
+        this.back.addActionListener(this);
         /* Add all components onto this Page object */
        display();
     }
@@ -84,7 +84,7 @@ public class RegisterPage extends Page {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             this.setCurrentRequest(new Register(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
-        } else if (s.equals("Back")){
+        }else if (s.equals("Back")){
             /* Back to login page */
             System.out.println("change request to login!");
             this.setCurrentRequest(new Login()); // change page back to Login

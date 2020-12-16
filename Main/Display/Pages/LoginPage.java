@@ -15,12 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 //
-// import java.awt.GridBagConstraints;
-// import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-// import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
+
+// import java.awt.GridBagConstraints;
+// import java.awt.GridBagLayout;
+// import javax.swing.JPasswordField;
 // import bank.SpringUtilities;
 // import javax.swing.Spring;
 // import javax.swing.SpringLayout;

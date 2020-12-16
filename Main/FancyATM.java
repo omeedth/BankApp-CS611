@@ -111,6 +111,7 @@ public class FancyATM implements Listener {
                 login();
                 // username pwd exist and match, go to user page
                 if (status == 1) {
+                    // credential passed, change to user page
                     this.display.changePage(new LoginPage());
                 }
                 else if(status == -1){
@@ -137,6 +138,7 @@ public class FancyATM implements Listener {
 
     public void login(){
         this.display.changePage(new LoginPage());
+        this.display.setVisible(true);
     }
     // public void toPage(Pages page){
     //     this.dispaly.changePage(page);

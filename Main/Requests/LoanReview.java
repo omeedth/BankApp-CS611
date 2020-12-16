@@ -53,11 +53,12 @@ public class LoanReview extends LoanProcess {
 			LoanAccount account = new LoanAccount(collateral, amountRequested.duplicate());
 			client.addAccount(account);
 			Bank bank = atm.getBank();
+			bank.removeFromGains(amountRequested);
 			bank.addToHistory(createRecordEntry());
 		}
 		
 		if(!accepted) {
-			//TODO: Process for when a loan is not approved
+			//Left blank intentionally, since nothing should happenin a loan is denied
 		}
 		setFlag(status);
 		return status;

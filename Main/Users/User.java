@@ -79,6 +79,13 @@ public abstract class User implements Recordable {
     }
 
     /* Mutator Methods */
+    public void setUsername(String username) {
+    	this.username = username;
+    }
+
+    public void setHashedPassword(int hashedPassword) {
+    	this.hashedPassword = hashedPassword;
+    }
 
     /* Logic Methods */
 

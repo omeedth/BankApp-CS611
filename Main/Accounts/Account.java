@@ -25,6 +25,7 @@ public abstract class Account implements Recordable {
 	
 	//TODO: Accounts must be able to be loaded from file
 	public static int accountCount = 0;
+	private static ArrayList<Account>allAccounts = new ArrayList<Account>();
 
     /* Data Members */
     public Bank bank;    
@@ -43,6 +44,7 @@ public abstract class Account implements Recordable {
         accountID = accountCount;
         dateCreated = new Date(System.currentTimeMillis());
 		accountCount++;
+		allAccounts.add(this);
     }
     
     public Account(int id, Date creationDate) {
@@ -50,6 +52,7 @@ public abstract class Account implements Recordable {
 		accountID = id;
 		dateCreated = creationDate;
 		System.out.println("Account Created!");
+		allAccounts.add(this); // TODO: Check later
 	}
 
     /* Accessor Methods */
@@ -66,8 +69,17 @@ public abstract class Account implements Recordable {
 	public int getAccountID() {
 		return accountID;
 	}
+	
+	public Bank getBank() {
+		return bank;
+	}
+	
+	public abstract String getAccountType();
 
     /* Mutator Methods */
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
 
     /* Logic Methods */
 	public boolean hasSameHolder(Account account2) {
@@ -108,6 +120,15 @@ public abstract class Account implements Recordable {
         }
 
         return String.join(",", data);
+    }
+    
+    public static Account getAccountByID(int id) {
+    	for(Account a : allAccounts) {
+    		if(a.getAccountID() == id) {
+    			return a;
+    		}
+    	}
+    	return null;
     }
 	
 }

@@ -25,6 +25,7 @@ public class AdministrativePage extends Page {
     /* Constructors */
 
     public AdministrativePage() {
+    	super();
 
     }    
 

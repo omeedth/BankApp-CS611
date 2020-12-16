@@ -15,6 +15,11 @@ import Main.Records.AccountEntry;
 import Main.Users.Manager;
 
 public class AdministrativeAccount extends ManagerAccount {
+
+	@Override
+	public String getAccountType() {
+		return "Administrative";
+	}
     
     /* Data Members */
 

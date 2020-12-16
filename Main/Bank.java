@@ -20,6 +20,8 @@ import Main.Records.RequestEntry;
 import Main.Records.UserEntry;
 import Main.Records.RecordTable;
 import Main.Records.TransactionEntry;
+import Main.Accounts.ClientAccount;
+import Main.Currencies.Currency;
 import Main.Currencies.Dollar;
 import Main.Records.*;
 import Main.Requests.*;
@@ -27,8 +29,8 @@ import Main.Requests.*;
 public class Bank {
 
     /* Static/Final Members */
-    public static Dollar fee = new Dollar(5);
-    public static double interest = 0.05;
+    public static Dollar fee = new Dollar(1), minToReceiveInterest = new Dollar(5000);
+    public static double savingsInterest = 0.05, loanInterest = 0.07;
 
     /* Data Members */
     private Manager manager;
@@ -36,6 +38,7 @@ public class Bank {
     private RecordTable<UserEntry> users;
     private RecordTable<TransactionEntry> transactions;
     private RecordTable<AccountEntry> accounts;
+    private Currency gains;
 
     /* Temporary User Storage */
     private List<User> usersList;
@@ -45,10 +48,20 @@ public class Bank {
     /* Constructors */
 
     public Bank() {
+        // Alex
         history = new RecordTable<>("History");
         users = new RecordTable<>("Users");
         accounts = new RecordTable<>("Accounts");
-        transactions = new RecordTable<>("Transactions");        
+        transactions = new RecordTable<>("Transactions");   
+
+        // Rohit
+    	manager = new Manager(); //TODO: Initialize manager
+        history = new RecordTable<>();
+        users = new RecordTable<>();
+        accounts = new RecordTable<>();
+        transactions = new RecordTable<>();
+        gains = new Dollar();
+        usersList = new ArrayList<User>();
 
         usersList = new ArrayList<>();
         // userMap = new HashMap<>();
@@ -81,6 +94,15 @@ public class Bank {
 
     public List<User> getUsersList() {
         return usersList;
+    }
+    
+    public List<ClientAccount> getClientAccounts() {
+    	//TODO: Placeholder
+    	return new ArrayList<ClientAccount>();
+    }
+    
+    public Currency getGains() {
+    	return gains;
     }
     
     // public RecordTable<TransactionEntry> getTransactions() {
@@ -213,19 +235,39 @@ public class Bank {
 		Manager loanHandler = findLoanHandler();
 		loanHandler.addLoanToApprove(review);
 	}
-	
-	public User findUser(String username) {
-		return userMap.get(username);
-	}
-	
-	public boolean usernameExists(String username) {
-		return findUser(username) != null;
-	}
-	
+
 	public void addUser(User user) {
 		usersList.add(user);
 		userMap.put(user.getUsername(), user);
     }
+	
+	public void addToGains(Currency amountToAdd) {
+		gains.receiveMoney(amountToAdd);
+	}
+
+	public void removeFromGains(Currency amountToRemove) {
+		gains.removeMoney(amountToRemove);
+	}
+	
+	public User findUser(String username) {
+		for(User user : usersList) {
+			if(user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public Client findClient(String username) {
+		User user = findUser(username);
+		if(user == null) {
+			return null;
+		}
+		if(user instanceof Client) {
+			return (Client)user;
+		}
+		return null;
+	}
     
     /* Static Methods */
 
@@ -234,16 +276,31 @@ public class Bank {
         Bank.fee = fee;
     }
 
-    public static void setInterest(double interest) {
-        Bank.interest = interest;
+    public static void setMinToReceiveInterest(Dollar minToReceiveInterest) {
+        Bank.minToReceiveInterest = minToReceiveInterest;
+    }
+
+    public static void setSavingsInterest(double interest) {
+        Bank.savingsInterest = interest;
+    }
+
+    public static void setLoanInterest(double interest) {
+        Bank.loanInterest = interest;
     }
 
     public static Dollar getFee() {
         return Bank.fee;
     }
 
-    public static double getInterest() {
-        return Bank.interest;
+    public static Dollar getMinToReceiveInterest() {
+        return Bank.minToReceiveInterest;
     }
-    
+
+    public static double getSavingsInterest() {
+        return Bank.savingsInterest;
+    }
+
+    public static double getLoanInterest() {
+        return Bank.loanInterest;
+    }
 }

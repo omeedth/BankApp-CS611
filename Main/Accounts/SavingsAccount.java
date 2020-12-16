@@ -2,6 +2,8 @@ package Main.Accounts;
 
 import java.text.ParseException;
 
+import Main.Bank;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -72,10 +74,16 @@ public class SavingsAccount extends DepositAccount {
 	public boolean canDeposit(Currency money) {
 		return true;
 	}
+	
+	public boolean canPayWithdrawalFee(Currency moneyToWithdraw) {
+		Currency withdrawalWithFee = moneyToWithdraw.duplicate();
+		withdrawalWithFee.receiveMoney(Bank.fee);
+		return willRemainAboveMinAmount(withdrawalWithFee);
+	}
 
 	@Override
 	public boolean canWithdraw(Currency money) {
-		return hasRemainingWithdraws() && willRemainAboveMinAmount(money);
+		return hasRemainingWithdraws() && willRemainAboveMinAmount(money) && canPayWithdrawalFee(money);
 	}
 	
 	@Override
@@ -85,5 +93,10 @@ public class SavingsAccount extends DepositAccount {
 			withdrawsRemaining--;
 		}
 		return result;
+	}
+
+	@Override
+	public String getAccountType() {
+		return "Savings";
 	}
 }

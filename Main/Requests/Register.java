@@ -1,5 +1,7 @@
 package Main.Requests;
 
+import javax.swing.JLabel;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -50,15 +52,64 @@ public class Register extends Request {
         System.out.println("Registering...");
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.userExists(username);
-        if (userRecordExist) {
-            System.out.println("User Exists!");
+        atm.register();
+        String unusableCharacters = "\\s";
+        String characterCheckRegex = ".*" + unusableCharacters + ".*";
+        if(username.length() < 4) {
+        	status = 1;
+        	System.out.println("The username is too short!");
+        	JLabel msg = new JLabel("The username must be at least 4 characters! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.length() < 4) {
+        	status = 1;
+        	System.out.println("The password is too short!");
+        	JLabel msg = new JLabel("The password must be at least 4 characters! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if(username.length() > 20) {
+        	status = 1;
+        	System.out.println("The username is too long!");
+        	JLabel msg = new JLabel("The username must be at most 20 characters! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.length() > 20) {
+        	status = 1;
+        	System.out.println("The password is too long!");
+        	JLabel msg = new JLabel("The password must be at most 20 characters! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if(username.matches(characterCheckRegex)) {
+        	status = 1;
+        	System.out.println("The username contains an invalid character!");
+        	JLabel msg = new JLabel("The username contains an invalid character! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.matches(characterCheckRegex)) {
+        	status = 1;
+        	System.out.println("The password contains an invalid character!");
+        	JLabel msg = new JLabel("The password contains an invalid character! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if (userRecordExist) {
+        	status = 1;
+        	System.out.println("User Exists!");
+        	// username pwd exist, stay and tell go back
+        	JLabel msg = new JLabel("You've already signed for an account! Please go back for login!");
+        	atm.msgReturn(msg);
         } else {
+            // Alex
             System.out.println("User doesn\'t exist!");
             Client client = new Client(username, password.hashCode());
             UserEntry userEntry = new UserEntry(client);
             atm.getBank().getUsersList().add(client);
             atm.getBank().getUsers().getRecordEntries().add(userEntry);
             FileParserUtility.writeLine(userEntry, UserEntry.filepath, true);
+
+            // Rohit
+        	JLabel msg = new JLabel("Registration complete! Please go back for login!");
+        	atm.msgReturn(msg);
+        	
         }
         setFlag(status);
         return status;

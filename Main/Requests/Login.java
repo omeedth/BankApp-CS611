@@ -1,5 +1,7 @@
 package Main.Requests;
 
+import javax.swing.JLabel;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -11,9 +13,11 @@ package Main.Requests;
 
 /* Internal Imports */
 import Main.Bank;
+import Main.Users.Client;
 import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
+import Main.Display.Pages.LoginPage;
 import Main.Display.Pages.UserPage;
 
 public class Login extends Request {
@@ -62,10 +66,6 @@ public class Login extends Request {
     	return true;
     }
     
-    protected void login(User user, FancyATM atm) {
-        atm.login();
-    }
-
     @Override
     public int performRequest(FancyATM atm) { // , FancyATM atm
         // TODO - 1. Validates the credentials using Bank's backend
@@ -76,13 +76,25 @@ public class Login extends Request {
         System.out.println("Logging in...");
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.validateUser(username, password);
+        atm.login();
         if (userRecordExist) {
-            System.out.println("Username Password Combo Exists!");
-            
-            atm.getDisplay().changePage(new UserPage(bank.getUserFromCredentials(username,password)));
+        	System.out.println("Username Password Combo Exists!");
+        	status = 1;
+			// username pwd exist and match, go to user page
+        	Client client = bank.findClient(username);
+			if(client == null) { //TODO: Temporary, until userList works
+				client = new Client();
+				client.setUsername(username);
+				client.setHashedPassword(0);
+            }
+            // atm.getDisplay().changePage(new UserPage(bank.getUserFromCredentials(username,password)));
+			atm.getDisplay().changePage(new UserPage(client));
         } else {
-            System.out.println("Username Password Combo doesn\'t exist!");
-            status = -1;
+        	System.out.println("Username Password Combo doesn\'t exist!");
+        	status = -1;
+			// stay in page if user does not exist
+			JLabel msg = new JLabel("Username Password Combo doesn\'t exist! Please register for account!");
+			atm.msgReturn(msg);
         }
         setFlag(status);
         return status;

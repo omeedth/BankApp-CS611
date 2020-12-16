@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import Main.Bank;
 import Main.Currencies.Currency;
 import Main.Records.AccountEntry;
 
@@ -73,6 +74,10 @@ public abstract class ClientAccount extends Account {
 	public String getCurrencyType() {
 		return currencyType;
 	}
+	
+	public double getMinAmount() {
+		return minAmount;
+	}
 
     /* Mutator Methods */
 	public void setAccountBalance(Currency accountBalance) {
@@ -80,8 +85,17 @@ public abstract class ClientAccount extends Account {
 			this.accountBalance = accountBalance;
 		}
 	}
+	
+	
+	public void setAccountHolder(Client c) {
+		accountHolder = c;
+	}
 
     /* Logic Methods */
+	
+	protected boolean willRemainAboveMinAmount(Currency moneyToWithdraw) {
+		return accountBalance.computeQuantityDifference(moneyToWithdraw) >= minAmount;
+	}
 	public abstract void determineMinAmount();
 	public abstract boolean canSendTransfer(Currency money);
 	public abstract boolean canReceiveTransfer(Currency money);
@@ -99,6 +113,10 @@ public abstract class ClientAccount extends Account {
 		boolean receiveSuccess = targetAccount.receiveTransfer(money);
 		return receiveSuccess;
 	}
+	
+	public abstract boolean isEligibleForInterest();
+
+	public abstract void addInterest();
 
 	@Override
 	public String toString() {

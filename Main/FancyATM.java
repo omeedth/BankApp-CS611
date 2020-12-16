@@ -22,6 +22,8 @@ package Main;
 
 /* External Imports */
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -50,12 +52,18 @@ public class FancyATM implements Listener {
     private Bank bank;
     private Display display;
     private boolean isRunning;
+    private Updater updater;
+    private Thread updaterThread;
 
     /* Constructors */
 
-    public FancyATM() {
+	public FancyATM() {
         this.display = new Display();
         this.bank = new Bank();        
+        updater = new Updater(this);
+        updater.setInterestInterval(10000); //TODO: Load preexisting interest interval
+        updaterThread = new Thread(updater);
+        updaterThread.start();
     }
 
     /* Accessor Methods */
@@ -67,6 +75,11 @@ public class FancyATM implements Listener {
     public Display getDisplay() {
         return display;
     }
+    
+    public long getLastExitTime() {
+    	//TODO: Placeholder
+    	return -1; //Replace this line entirely
+    }
 
     /* Mutator Methods */
 
@@ -77,6 +90,10 @@ public class FancyATM implements Listener {
     public void stopRunning() {
         this.isRunning = false;
     }
+
+    public boolean isRunning() {
+		return isRunning;
+	}
 
     /* Logic Methods */
 
@@ -97,10 +114,10 @@ public class FancyATM implements Listener {
 
         /* Set Bank Variables */
         Bank.setFee(new Dollar(Double.parseDouble(bankVariables[0])));
-        Bank.setInterest(Double.parseDouble(bankVariables[1]));
+        Bank.setSavingsInterest(Double.parseDouble(bankVariables[1]));
 
         /* TESTING */
-        System.out.println("Loaded Metadata!\nTransaction: " + Transaction.transactionCount + "\nAccount: " + Account.accountCount + "\nUser: " + User.userCounter + "\n\nBank Fee: " + Bank.getFee() + "\nBank Interest: " + Bank.getInterest());
+        System.out.println("Loaded Metadata!\nTransaction: " + Transaction.transactionCount + "\nAccount: " + Account.accountCount + "\nUser: " + User.userCounter + "\n\nBank Fee: " + Bank.getFee() + "\nBank Interest: " + Bank.getSavingsInterest());
     }
 
     /**
@@ -187,7 +204,7 @@ public class FancyATM implements Listener {
 
         /* Bank Variables */
         String fee = Double.toString(Bank.getFee().getQuantity());
-        String interest = Double.toString(Bank.getInterest());
+        String interest = Double.toString(Bank.getSavingsInterest());
 
         bankVariables[0] = fee;
         bankVariables[1] = interest;
@@ -236,27 +253,33 @@ public class FancyATM implements Listener {
         if (obj instanceof Request) {
 
             int status = ((Request) obj).performRequest(this);
-            
-            if (obj instanceof Login) {
-                // Do login
-                if (status == 0) {
-                    // login();
-                }                
-            }
-            // if (obj instanceof Register){
-            //     register();
-            // }
 
         }
     }
 
-    public void login() {
-        this.display.changePage(new RegisterPage());
+    public void login(){
+        goToPage(new LoginPage());
     }
-
-    // public void register() {
-    //     System.out.println("Registering for new user...");
-    //     this.display.changePage(new UserPage();)
+    // public void toPage(Pages page){
+    //     this.dispaly.changePage(page);
     // }
 
+    public void register() {
+        goToPage(new RegisterPage());
+    }
+
+    public void msgReturn(JLabel msg) {
+        // stay in current page and return message
+        this.display.currentPage.add(msg);
+        this.display.setVisible(true);
+    }
+
+	public void goToPage(Page page) {
+		this.display.changePage(page);
+	}
+
+    // public void back(Pages page) {
+    //     this.display.changePage(new page());
+    // }
+    
 }

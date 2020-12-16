@@ -1,5 +1,7 @@
 package Main.Accounts;
 
+import Main.Bank;
+
 /* 
  *  Author: 
  *  Creation Date: 12/14/2020
@@ -111,6 +113,21 @@ public class LoanAccount extends ClientAccount {
 	@Override
 	protected boolean receiveTransfer(Currency money) {
 		return payBackLoan(money);
+	}
+
+	@Override
+	public boolean isEligibleForInterest() {
+		return true;
+	}
+
+	@Override
+	public void addInterest() {
+		accountBalance.multiplyQuantity(1+Bank.loanInterest);
+	}
+
+	@Override
+	public String getAccountType() {
+		return "Loan";
 	}
 
 }

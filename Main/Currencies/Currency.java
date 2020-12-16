@@ -13,6 +13,8 @@ package Main.Currencies;
 
 public abstract class Currency {
 	
+	public static final String[]usableCurrencies = new String[]{"Dollar", "Yen", "Pound"};
+	
     /* Data Members */
 	protected double quantity;
 	protected String name;
@@ -107,4 +109,17 @@ public abstract class Currency {
 		}
 	}
 
+	public static Currency createInstanceOfType(String currencyName) {
+		if(currencyName.equals("Dollar")) {
+			return new Dollar();
+		}
+		else if(currencyName.equals("Yen")) {
+			return new Yen();
+		}
+		else if(currencyName.equals("Pound")) {
+			return new Pound();
+		}
+		return null;
+	}
+    
 }

@@ -77,6 +77,7 @@ public class Login extends Request {
         boolean userRecordExist = bank.validateUser(username, password);
         if (userRecordExist) {
             System.out.println("Username Password Combo Exists!");
+            status = 1;
         } else {
             System.out.println("Username Password Combo doesn\'t exist!");
             status = -1;

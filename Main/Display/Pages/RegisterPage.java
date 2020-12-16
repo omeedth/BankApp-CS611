@@ -27,6 +27,7 @@ public class RegisterPage extends Page {
     private JTextField usernameInput;
     private JTextField passwordInput;
     private JButton register;
+    private JButton back;
 
     /* Constructors */
 
@@ -36,6 +37,8 @@ public class RegisterPage extends Page {
         this.passwordInput = new JTextField("Password");
 
         this.register = new JButton("Register");
+        
+        this.back = new JButton("Back");
         this.init();
     }
 
@@ -50,6 +53,10 @@ public class RegisterPage extends Page {
 
     public JButton getRegister() {
         return register;
+    }
+
+    public JButton back() {
+        return back;
     }
     /* Mutator Methods */
 
@@ -77,7 +84,11 @@ public class RegisterPage extends Page {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             this.setCurrentRequest(new Register(username, password)); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
-        } 
+        } else if (s.equals("Back")){
+            /* Back to login page */
+            System.out.println("change request to login!");
+            this.setCurrentRequest(new Login()); // change page back to Login
+        }
     }
 
     @Override
@@ -86,6 +97,7 @@ public class RegisterPage extends Page {
         this.add(this.usernameInput);
         this.add(this.passwordInput);
         this.add(this.register); 
+        this.add(this.back);
     }
     
 }

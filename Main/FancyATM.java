@@ -108,37 +108,52 @@ public class FancyATM implements Listener {
             int status = ((Request) obj).performRequest(this);
             
             if (obj instanceof Login) {
-                // username pwd exists and matches, go to user page
-                if (status == 0) {
-                    login();
+                login();
+                // username pwd exist and match, go to user page
+                if (status == 1) {
+                    this.display.changePage(new LoginPage());
                 }
                 else if(status == -1){
-                    // stay in page
-                    loginFail();
-                    
+                    // stay in page if user does not exist
+                    JLabel msg = new JLabel("Username Password Combo doesn\'t exist! Please register for account!");
+                    msgReturn(msg);
                 }                
-            }
-            if (obj instanceof Register){
+            } else if (obj instanceof Register){
                 // go to register page
                 register();
+                // username pwd exist, stay and tell go back
+                if (status == 1){
+                    JLabel msg = new JLabel("You've already signed for an account! Please go back for login!");
+                    msgReturn(msg);
+                } else if (status == -1){
+                    // registration complete, stay and tell go back
+                    JLabel msg = new JLabel("Registration complete! Please go back for login!");
+                    msgReturn(msg);
+                }
             }
 
         }
     }
 
-    public void login() {
-        this.display.changePage(new RegisterPage());
+    public void login(){
+        this.display.changePage(new LoginPage());
     }
-
-    public void loginFail() {
-        JLabel msgReturn = new JLabel("Username Password Combo doesn\'t exist! Please register for account!");
-        // this.display.changePage(new LoginPage());
-        this.display.currentPage.add(msgReturn);
-        this.display.setVisible(true);
-    }
+    // public void toPage(Pages page){
+    //     this.dispaly.changePage(page);
+    // }
 
     public void register() {
         this.display.changePage(new RegisterPage());
     }
+
+    public void msgReturn(JLabel msg) {
+        // stay in current page and return message
+        this.display.currentPage.add(msg);
+        this.display.setVisible(true);
+    }
+
+    // public void back(Pages page) {
+    //     this.display.changePage(new page());
+    // }
 
 }

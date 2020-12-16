@@ -51,11 +51,13 @@ public class Register extends Request {
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.userExists(username);
         if (userRecordExist) {
+            status = 1;
             System.out.println("User Exists!");
         } else {
             System.out.println("User doesn\'t exist!");
             Client client = new Client(username, password.hashCode());
             FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
+            status = -1;
         }
         setFlag(status);
         return status;

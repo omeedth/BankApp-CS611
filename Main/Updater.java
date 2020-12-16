@@ -78,7 +78,9 @@ public class Updater implements Runnable {
 	private void doUpdateRound() {
 		Bank bank = atm.getBank();
 		for(ClientAccount account : bank.getClientAccounts()) {
-			account.addInterest(interestRate);
+			if(account.isEligibleForInterest()) {
+				account.addInterest();
+			}
 		}
 	}
 	

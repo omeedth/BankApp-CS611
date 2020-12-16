@@ -23,6 +23,8 @@ package Main;
 
 /* External Imports */
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /* Internal Imports */
 import Main.Display.Display;
@@ -45,7 +47,7 @@ public class FancyATM implements Listener {
         this.display = new Display();
         this.bank = new Bank();        
         updater = new Updater(this);
-        updater.setInterestInterval(10000);
+        updater.setInterestInterval(10000); //TODO: Load preexisting interest interval
         updaterThread = new Thread(updater);
         updaterThread.start();
     }
@@ -118,27 +120,30 @@ public class FancyATM implements Listener {
         if (obj instanceof Request) {
 
             int status = ((Request) obj).performRequest(this);
-            
-            if (obj instanceof Login) {
-                // Do login
-                if (status == 0) {
-                    login();
-                }                
-            }
-            // if (obj instanceof Register){
-            //     register();
-            // }
+
 
         }
     }
 
-    public void login() {
+    public void login(){
+        this.display.changePage(new LoginPage());
+    }
+    // public void toPage(Pages page){
+    //     this.dispaly.changePage(page);
+    // }
+
+    public void register() {
         this.display.changePage(new RegisterPage());
     }
 
-    // public void register() {
-    //     System.out.println("Registering for new user...");
-    //     this.display.changePage(new UserPage();)
-    // }
+    public void msgReturn(JLabel msg) {
+        // stay in current page and return message
+        this.display.currentPage.add(msg);
+        this.display.setVisible(true);
+    }
 
+    // public void back(Pages page) {
+    //     this.display.changePage(new page());
+    // }
+    
 }

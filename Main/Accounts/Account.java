@@ -57,8 +57,15 @@ public abstract class Account implements Recordable {
 	public int getAccountID() {
 		return accountID;
 	}
+	
+	public Bank getBank() {
+		return bank;
+	}
 
     /* Mutator Methods */
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
 
     /* Logic Methods */
 	public boolean hasSameHolder(Account account2) {

@@ -1,5 +1,7 @@
 package Main.Requests;
 
+import javax.swing.JLabel;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -14,6 +16,7 @@ import Main.Bank;
 import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
+import Main.Display.Pages.LoginPage;
 
 public class Login extends Request {
     
@@ -61,10 +64,6 @@ public class Login extends Request {
     	return true;
     }
     
-    protected void login(User user, FancyATM atm) {
-        atm.login();
-    }
-
     @Override
     public int performRequest(FancyATM atm) { // , FancyATM atm
         // TODO - 1. Validates the credentials using Bank's backend
@@ -75,11 +74,18 @@ public class Login extends Request {
         System.out.println("Logging in...");
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.validateUser(username, password);
+        atm.login();
         if (userRecordExist) {
-            System.out.println("Username Password Combo Exists!");
+        	System.out.println("Username Password Combo Exists!");
+        	status = 1;
+			// username pwd exist and match, go to user page
+			atm.getDisplay().changePage(new LoginPage());
         } else {
-            System.out.println("Username Password Combo doesn\'t exist!");
-            status = -1;
+        	System.out.println("Username Password Combo doesn\'t exist!");
+        	status = -1;
+			// stay in page if user does not exist
+			JLabel msg = new JLabel("Username Password Combo doesn\'t exist! Please register for account!");
+			atm.msgReturn(msg);
         }
         setFlag(status);
         return status;

@@ -1,6 +1,8 @@
 package Main.Accounts;
 
 
+import Main.Bank;
+
 /* 
  *  Author: 
  *  Creation Date: 12/12/2020
@@ -12,6 +14,7 @@ package Main.Accounts;
 
 /* Internal Imports */
 import Main.Currencies.Currency;
+import Main.Currencies.Dollar;
 
 public abstract class DepositAccount extends ClientAccount {
 	
@@ -30,10 +33,6 @@ public abstract class DepositAccount extends ClientAccount {
     /* Logic Methods */
 	public abstract boolean canDeposit(Currency money);
 	public abstract boolean canWithdraw(Currency money);
-	
-	protected boolean willRemainAboveMinAmount(Currency moneyToWithdraw) {
-		return accountBalance.computeQuantityDifference(moneyToWithdraw) >= minAmount;
-	}
 
 	public boolean deposit(Currency money) {
 		if(!canDeposit(money)) {
@@ -48,6 +47,8 @@ public abstract class DepositAccount extends ClientAccount {
 			return false;
 		}
 		accountBalance.removeMoney(money);
+		accountBalance.removeMoney(Bank.fee);
+		bank.addToGains(Bank.fee);
 		return true;
 	}
 
@@ -71,8 +72,14 @@ public abstract class DepositAccount extends ClientAccount {
 		return deposit(money);
 	}
 	
-	public void addInterest(double interestRate) {
-		accountBalance.multiplyQuantity(1+interestRate);
+	@Override
+	public boolean isEligibleForInterest() {
+		return accountBalance.computeQuantityDifference(Bank.minToReceiveInterest) >= 0;
+	}
+
+	@Override
+	public void addInterest() {
+		accountBalance.multiplyQuantity(1+Bank.savingsInterest);
 	}
 		
 	

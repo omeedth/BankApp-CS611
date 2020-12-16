@@ -31,7 +31,7 @@ public class Display extends JFrame implements Listener, Notifier {
 
     /* Data Members */
     private Request currentRequest;
-    private Page currentPage;
+    public static Page currentPage;
     private boolean isRunning;
     private List<Listener> listeners;
 
@@ -130,7 +130,7 @@ public class Display extends JFrame implements Listener, Notifier {
     public void update(Object obj) {
         System.out.println("Update (Display): " + obj);
 
-        /* Check what type of object is is and update accordingly */
+        /* Check what type of object it is and update accordingly */
         if (obj instanceof Request) {
             setCurrentRequest((Request) obj);
         }        

@@ -59,7 +59,13 @@ public class SecurityAccount extends ClientAccount {
 	}
 
 	@Override
-	public void addInterest(double interestRate) {
+	public boolean isEligibleForInterest() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addInterest() {
 		// TODO Auto-generated method stub
 		
 	}

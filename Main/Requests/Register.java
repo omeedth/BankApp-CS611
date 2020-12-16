@@ -1,5 +1,7 @@
 package Main.Requests;
 
+import javax.swing.JLabel;
+
 /* 
  *  Author: 
  *  Creation Date: 12/4/2020
@@ -50,12 +52,20 @@ public class Register extends Request {
         System.out.println("Registering...");
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.userExists(username);
+        atm.register();
         if (userRecordExist) {
-            System.out.println("User Exists!");
+        	status = 1;
+        	System.out.println("User Exists!");
+        	// username pwd exist, stay and tell go back
+        	JLabel msg = new JLabel("You've already signed for an account! Please go back for login!");
+        	atm.msgReturn(msg);
         } else {
-            System.out.println("User doesn\'t exist!");
-            Client client = new Client(username, password.hashCode());
-            FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
+        	System.out.println("User doesn\'t exist!");
+        	Client client = new Client(username, password.hashCode());
+        	FileParserUtility.writeLine(new UserEntry(client), UserEntry.filepath, true);
+        	status = -1;
+        	JLabel msg = new JLabel("Registration complete! Please go back for login!");
+        	atm.msgReturn(msg);
         }
         setFlag(status);
         return status;

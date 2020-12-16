@@ -53,7 +53,45 @@ public class Register extends Request {
         Bank bank = atm.getBank();
         boolean userRecordExist = bank.userExists(username);
         atm.register();
-        if (userRecordExist) {
+        String unusableCharacters = "\s";
+        String characterCheckRegex = ".*" + unusableCharacters + ".*";
+        if(username.length() < 4) {
+        	status = 1;
+        	System.out.println("The username is too short!");
+        	JLabel msg = new JLabel("The username must be at least 4 characters! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.length() < 4) {
+        	status = 1;
+        	System.out.println("The password is too short!");
+        	JLabel msg = new JLabel("The password must be at least 4 characters! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if(username.length() > 20) {
+        	status = 1;
+        	System.out.println("The username is too long!");
+        	JLabel msg = new JLabel("The username must be at most 20 characters! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.length() > 20) {
+        	status = 1;
+        	System.out.println("The password is too long!");
+        	JLabel msg = new JLabel("The password must be at most 20 characters! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if(username.matches(characterCheckRegex)) {
+        	status = 1;
+        	System.out.println("The username contains an invalid character!");
+        	JLabel msg = new JLabel("The username contains an invalid character! Please enter another username.");
+        	atm.msgReturn(msg);
+        }
+        else if(password.matches(characterCheckRegex)) {
+        	status = 1;
+        	System.out.println("The password contains an invalid character!");
+        	JLabel msg = new JLabel("The password contains an invalid character! Please enter another password.");
+        	atm.msgReturn(msg);
+        }
+        else if (userRecordExist) {
         	status = 1;
         	System.out.println("User Exists!");
         	// username pwd exist, stay and tell go back

@@ -32,7 +32,6 @@ import Main.Display.Pages.*;
 import Main.Utility.Listener;
 import Main.Requests.*;
 
-
 public class FancyATM implements Listener {
 
     /* Data Members */
@@ -121,6 +120,7 @@ public class FancyATM implements Listener {
         if (obj instanceof Request) {
 
             int status = ((Request) obj).performRequest(this);
+
 
         }
     }

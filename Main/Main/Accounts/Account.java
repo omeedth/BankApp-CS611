@@ -24,6 +24,7 @@ public abstract class Account implements Recordable {
 	
 	//TODO: Accounts must be able to be loaded from file
 	private static int accountTotal = 0;
+	private static ArrayList<Account>allAccounts = new ArrayList<Account>();
 
     /* Data Members */
     public Bank bank;    
@@ -41,6 +42,7 @@ public abstract class Account implements Recordable {
 		// password = "";
 		accountID = accountTotal;
 		accountTotal++;
+		allAccounts.add(this);
 	}
 
     /* Accessor Methods */
@@ -61,6 +63,8 @@ public abstract class Account implements Recordable {
 	public Bank getBank() {
 		return bank;
 	}
+	
+	public abstract String getAccountType();
 
     /* Mutator Methods */
 	public void setBank(Bank bank) {
@@ -88,6 +92,15 @@ public abstract class Account implements Recordable {
         
 
         return String.join(",", data);
+    }
+    
+    public static Account getAccountByID(int id) {
+    	for(Account a : allAccounts) {
+    		if(a.getAccountID() == id) {
+    			return a;
+    		}
+    	}
+    	return null;
     }
 	
 }

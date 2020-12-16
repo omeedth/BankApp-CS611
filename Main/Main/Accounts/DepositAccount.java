@@ -33,10 +33,6 @@ public abstract class DepositAccount extends ClientAccount {
     /* Logic Methods */
 	public abstract boolean canDeposit(Currency money);
 	public abstract boolean canWithdraw(Currency money);
-	
-	protected boolean willRemainAboveMinAmount(Currency moneyToWithdraw) {
-		return accountBalance.computeQuantityDifference(moneyToWithdraw) >= minAmount;
-	}
 
 	public boolean deposit(Currency money) {
 		if(!canDeposit(money)) {
@@ -77,8 +73,13 @@ public abstract class DepositAccount extends ClientAccount {
 	}
 	
 	@Override
-	public void addInterest(double interestRate) {
-		accountBalance.multiplyQuantity(1+interestRate);
+	public boolean isEligibleForInterest() {
+		return accountBalance.computeQuantityDifference(Bank.minToReceiveInterest) >= 0;
+	}
+
+	@Override
+	public void addInterest() {
+		accountBalance.multiplyQuantity(1+Bank.savingsInterest);
 	}
 		
 	

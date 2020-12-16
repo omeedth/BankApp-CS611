@@ -12,6 +12,11 @@ package Main.Accounts;
 /* Internal Imports */
 
 public class AdministrativeAccount extends ManagerAccount {
+
+	@Override
+	public String getAccountType() {
+		return "Administrative";
+	}
     
     /* Data Members */
 

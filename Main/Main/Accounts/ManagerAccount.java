@@ -29,6 +29,9 @@ public abstract class ManagerAccount extends Account {
 	}
 
     /* Mutator Methods */
+	public void setAccountHolder(Manager m) {
+		accountHolder = m;
+	}
 
     /* Logic Methods */
 

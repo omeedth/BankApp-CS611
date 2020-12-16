@@ -78,4 +78,9 @@ public class SavingsAccount extends DepositAccount {
 		}
 		return result;
 	}
+
+	@Override
+	public String getAccountType() {
+		return "Savings";
+	}
 }

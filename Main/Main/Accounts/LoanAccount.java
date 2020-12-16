@@ -1,5 +1,7 @@
 package Main.Accounts;
 
+import Main.Bank;
+
 /* 
  *  Author: 
  *  Creation Date: 12/14/2020
@@ -114,8 +116,18 @@ public class LoanAccount extends ClientAccount {
 	}
 
 	@Override
-	public void addInterest(double interestRate) {
-		accountBalance.multiplyQuantity(1+interestRate);
+	public boolean isEligibleForInterest() {
+		return true;
+	}
+
+	@Override
+	public void addInterest() {
+		accountBalance.multiplyQuantity(1+Bank.loanInterest);
+	}
+
+	@Override
+	public String getAccountType() {
+		return "Loan";
 	}
 
 }

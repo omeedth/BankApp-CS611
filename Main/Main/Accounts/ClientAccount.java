@@ -47,6 +47,10 @@ public abstract class ClientAccount extends Account {
 	public String getCurrencyType() {
 		return currencyType;
 	}
+	
+	public double getMinAmount() {
+		return minAmount;
+	}
 
     /* Mutator Methods */
 	public void setAccountBalance(Currency accountBalance) {
@@ -54,8 +58,17 @@ public abstract class ClientAccount extends Account {
 			this.accountBalance = accountBalance;
 		}
 	}
+	
+	
+	public void setAccountHolder(Client c) {
+		accountHolder = c;
+	}
 
     /* Logic Methods */
+	
+	protected boolean willRemainAboveMinAmount(Currency moneyToWithdraw) {
+		return accountBalance.computeQuantityDifference(moneyToWithdraw) >= minAmount;
+	}
 	public abstract void determineMinAmount();
 	public abstract boolean canSendTransfer(Currency money);
 	public abstract boolean canReceiveTransfer(Currency money);
@@ -74,10 +87,8 @@ public abstract class ClientAccount extends Account {
 		return receiveSuccess;
 	}
 	
-	public boolean isEligibleForInterest() {
-		return accountBalance.computeQuantityDifference(Bank.minToReceiveInterest) >= 0;
-	}
+	public abstract boolean isEligibleForInterest();
 
-	public abstract void addInterest(double interestRate);
+	public abstract void addInterest();
 
 }

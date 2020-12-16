@@ -63,4 +63,9 @@ public class CheckingsAccount extends DepositAccount {
 		return result;
 	}
 
+	@Override
+	public String getAccountType() {
+		return "Checking";
+	}
+
 }

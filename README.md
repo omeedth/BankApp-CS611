@@ -77,8 +77,8 @@ public static void main(String args[]) {
 ## Currencies Classes
 ***Currency.java*** - Abstract class for all currencies, holding with exchange rates, name, and amount
 ***Dollar.java, Yen.java, Pound.java*** - Currency classes extend Currency.java.
----
 
+---
 
 ## Display Classes 
 ***Display.java*** - Display class for front end implements Listener and Notifier to listen to and notify all GUI features. Main helper class for front end display function.

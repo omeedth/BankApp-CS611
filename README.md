@@ -75,7 +75,8 @@ public static void main(String args[]) {
 
 
 ## Currencies Classes
-
+***Currency.java*** - Abstract class for all currencies, holding with exchange rates, name, and amount
+***Dollar.java, Yen.java, Pound.java*** - Currency classes extend Currency.java.
 ---
 
 
@@ -87,7 +88,7 @@ public static void main(String args[]) {
 
 ## Display.Pages Classes
 ***Page package: Page.java*** - Abstract class for Page package with basic page design and actionPerformed method for listening from back-end.
-*** *Page.java*** - All files with page.java suffix extend Page.java, representing for corresponded user interfaces.
+****Page.java*** - All files with page.java suffix extend Page.java, representing for corresponded user interfaces.
 ***UserPage.java*** - Client page where all the functions as open/close account, transactions, loan application, and deposit/withdraw show. 
 
 ---

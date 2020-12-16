@@ -125,7 +125,7 @@ public class LoginPage extends Page {
             // String password = passwordInput.getText();
             this.setCurrentRequest(new Register()); // The Front End will change the page itself when it performsRequest(); NOTE: Check Observer Pattern
         } else if(s.equals("Login Manager")) {
-        	this.setCurrentRequest(new Login()); //TODO: This is a catastrophe
+        	this.setCurrentRequest(new OpenManagerPage()); //TODO: This is a catastrophe
         }
     }
 

@@ -45,10 +45,12 @@ public class Bank {
     /* Constructors */
 
     public Bank() {
-        history = new RecordTable<>();
-        users = new RecordTable<>();
-        accounts = new RecordTable<>();
-        transactions = new RecordTable<>();
+        history = new RecordTable<>("History");
+        users = new RecordTable<>("Users");
+        accounts = new RecordTable<>("Accounts");
+        transactions = new RecordTable<>("Transactions");
+
+        init();
 
         // users = new ArrayList<>();
         // userMap = new HashMap<>();
@@ -72,6 +74,31 @@ public class Bank {
     /* Mutator Methods */
 
     /* Logic Methods */
+
+    public void init() {
+
+        System.out.println("Initializing Bank Records...");
+
+        /* Fill RecordTable Objects */
+        for (String line : FileParserUtility.getLines(RequestEntry.filepath)) {
+            history.getRecordEntries().add(new RequestEntry(line));
+        }
+
+        for (String line : FileParserUtility.getLines(AccountEntry.filepath)) {
+            accounts.getRecordEntries().add(new AccountEntry(line));
+        }
+
+        for (String line : FileParserUtility.getLines(TransactionEntry.filepath)) {
+            transactions.getRecordEntries().add(new TransactionEntry(line));
+        }
+
+        for (String line : FileParserUtility.getLines(UserEntry.filepath)) {
+            users.getRecordEntries().add(new UserEntry(line));
+        }
+
+        System.out.println("Initialized!\n\nHistory: " + history + "\nAccounts: " + accounts + "\nTransactions: " + transactions + "\nUsers: " + users + "\n");
+
+    }
 
     /**
      * NOTE: UNUSED
@@ -113,6 +140,23 @@ public class Bank {
             }
         }
         return false;
+    }
+
+    public User getUserFromCredentials(String username, String password) {
+        User result = null;
+
+        List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
+        for (String line : lines) {
+            UserEntry userEntry = new UserEntry(line);
+            HashMap<String,Object> userRecordData = userEntry.getRecordData();
+            String hashedPassword = Integer.toString(password.hashCode());
+            if (username.equalsIgnoreCase(userRecordData.getOrDefault("username", "").toString()) && hashedPassword.equalsIgnoreCase(userRecordData.getOrDefault("hashedPassword", "").toString())) {
+                result = userEntry.getUser();
+                break;
+            }
+        }
+
+        return result;
     }
     
     public void addToHistory(UserEntry entry) {

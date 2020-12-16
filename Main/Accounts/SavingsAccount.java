@@ -1,5 +1,6 @@
 package Main.Accounts;
 
+import java.text.ParseException;
 
 /* 
  *  Author: 
@@ -12,17 +13,32 @@ package Main.Accounts;
 
 /* Internal Imports */
 import Main.Currencies.Currency;
+import Main.Records.AccountEntry;
+import Main.Users.Client;
 
 public class SavingsAccount extends DepositAccount {
 
-
-    /* Data Members */
+	/* Data Members */
 	protected int totalWithdraws, withdrawsRemaining;
 
-    /* Constructors */
+	/* Constructors */
 	public SavingsAccount() {
 		totalWithdraws = 6;
 		withdrawsRemaining = 6;
+	}
+
+	public SavingsAccount(Currency startingBalance) {
+		super(startingBalance);
+	}
+
+	public SavingsAccount(Client accountHolder, Currency startingBalance) {
+		super(accountHolder,startingBalance);
+	}
+
+	public SavingsAccount(AccountEntry accountEntry) throws ParseException {
+		super(accountEntry);
+		totalWithdraws = 0;
+		withdrawsRemaining = 0;
 	}
 
     /* Accessor Methods */

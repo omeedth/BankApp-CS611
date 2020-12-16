@@ -44,4 +44,9 @@ public class RecordTable<T extends RecordEntry> {
 
     /* Logic Methods */
 
+    @Override
+    public String toString() {
+        return "<" + tableName + ": " + recordEntries + ">";
+    }
+
 }

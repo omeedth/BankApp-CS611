@@ -15,12 +15,19 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
 
+import Main.Bank;
+import Main.Accounts.Account;
 /* Internal Imports */
 // import Main.FancyATM;
 import Main.Display.Pages.LoginPage;
 import Main.Display.Pages.Page;
 import Main.Requests.*;
+import Main.Users.User;
+import Main.Utility.FileParserUtility;
 import Main.Utility.Listener;
 import Main.Utility.Notifier;
 
@@ -61,7 +68,7 @@ public class Display extends JFrame implements Listener, Notifier {
     @Override
     public Collection<Listener> getListeners() {
         return this.listeners;
-    }    
+    }
 
     /* Mutator Methods */
 
@@ -86,8 +93,8 @@ public class Display extends JFrame implements Listener, Notifier {
     }
 
     public void setCurrentPage(Page currentPage) {
-        assert currentPage != null;      
-        this.clear();  
+        assert currentPage != null;
+        this.clear();
         this.currentPage = currentPage;
         this.getContentPane().add(this.currentPage);
         this.currentPage.addListener(this);
@@ -134,6 +141,6 @@ public class Display extends JFrame implements Listener, Notifier {
         if (obj instanceof Request) {
             setCurrentRequest((Request) obj);
         }        
-    }
+    }    
 
 }

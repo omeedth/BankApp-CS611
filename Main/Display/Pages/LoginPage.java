@@ -105,17 +105,6 @@ public class LoginPage extends Page {
         display();    
     }
 
-    public void waitForRequestCompletion() {
-
-        /* Start running */
-
-        /* While flag is not 0 */
-        while (this.getCurrentRequest() != null && this.getCurrentRequest().getFlag() != 0) {
-            
-        }
-
-    }
-
     // if the button is pressed 
     @Override
     public void actionPerformed(ActionEvent e) 

@@ -1,5 +1,11 @@
 package Main.Requests;
 
+import Main.Bank;
+import Main.FancyATM;
+import Main.Accounts.ClientAccount;
+import Main.Accounts.DepositAccount;
+import Main.Currencies.Currency;
+import Main.Users.User;
 
 /* 
  *  Author: 
@@ -11,8 +17,6 @@ package Main.Requests;
 /* External Imports */
 
 /* Internal Imports */
-import Main.Accounts.DepositAccount;
-import Main.Currencies.Currency;
 
 public class Deposit extends Transaction {
 
@@ -41,6 +45,12 @@ public class Deposit extends Transaction {
 	@Override
 	public boolean makeTransaction() {
 		return account.deposit(moneyToMove);
+	}
+
+	@Override
+	public int performRequest(FancyATM atm) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
     
 }

@@ -5,6 +5,10 @@ import Main.Requests.Request;
 
 public class RequestEntry extends RecordEntry {
 
+	/* Static/Final Members */
+    public static final String filepath = "./Data/History.csv";
+
+	/* Data Members */
 	protected Request originalRequest; // TODO replace with organized data
 
 	public RequestEntry() {

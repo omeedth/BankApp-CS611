@@ -11,26 +11,53 @@ package Main.Accounts;
 
 /* Internal Imports */
 import Main.Users.Client;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import Main.Currencies.Currency;
+import Main.Records.AccountEntry;
 
 public abstract class ClientAccount extends Account {
 
-    /* Data Members */
+	/* Data Members */
 	private Client accountHolder;
 	protected Currency accountBalance;
 	protected String currencyType;
 	protected double minAmount;
 
-    /* Constructors */
+	/* Constructors */
 	public ClientAccount() {
-		this(null);
+		super();
+		accountHolder = null;
+		accountBalance = null;
+		currencyType = null;
+		determineMinAmount();
 	}
-	
+
 	public ClientAccount(Currency startingBalance) {
 		super();
 		accountHolder = null;
 		accountBalance = startingBalance;
-		currencyType = null;
+		currencyType = startingBalance.getCurrencyName();
+		determineMinAmount();
+	}
+
+	public ClientAccount(Client accountHolder, Currency startingBalance) {
+		super();
+		this.accountHolder = accountHolder;
+		accountBalance = startingBalance;
+		currencyType = (startingBalance != null ? startingBalance.getCurrencyName() : null);
+		determineMinAmount();
+	}
+
+	public ClientAccount(AccountEntry accountEntry) throws ParseException {
+		super((int) accountEntry.getRecordData().get("id"), new SimpleDateFormat("dd-MM-yyyy",Locale.ENGLISH).parse(((String) accountEntry.getRecordData().get("creationDate"))));
+		accountHolder = (Client) accountEntry.getUser();
+		accountBalance = Currency.getCurrency((Double) accountEntry.getRecordData().get("balance"), (String) accountEntry.getRecordData().get("currencyType"));
+		currencyType = (String) accountEntry.getRecordData().get("currencyType");
 		determineMinAmount();
 	}
 

@@ -1,6 +1,10 @@
 package Main.Accounts;
 
+import java.text.ParseException;
+
 import Main.Currencies.Currency;
+import Main.Records.AccountEntry;
+import Main.Users.Client;
 
 /* 
  *  Author: 
@@ -15,9 +19,21 @@ import Main.Currencies.Currency;
 
 public class SecurityAccount extends ClientAccount {
 
-    /* Data Members */
+	/* Data Members */
 
-    /* Constructors */
+	/* Constructors */
+
+	public SecurityAccount(AccountEntry accountEntry) throws ParseException {
+		super(accountEntry);
+	} 
+
+	public SecurityAccount(Currency startingBalance) {
+		super(startingBalance);
+	}
+
+	public SecurityAccount(Client accountHolder, Currency startingBalance) {
+		super(accountHolder, startingBalance);
+	}
 
     /* Accessor Methods */
 

@@ -21,7 +21,11 @@ import Main.Records.Recordable;
 
 public abstract class Transaction extends Request implements Recordable {
 
-    /* Data Members */
+	/* Static/Final Members */
+	public static int transactionCount;
+
+	/* Data Members */
+	private int transactionID;
 	protected DepositAccount account;
 	protected Currency moneyToMove;
 
@@ -33,6 +37,7 @@ public abstract class Transaction extends Request implements Recordable {
 	public Transaction(DepositAccount account, Currency moneyToMove) {
 		this.account = account;
 		this.moneyToMove = moneyToMove;
+		transactionID = transactionCount++;
 	}
 
     /* Accessor Methods */
@@ -76,8 +81,12 @@ public abstract class Transaction extends Request implements Recordable {
     public String toRecordString() {
         List<String> data = new ArrayList<>();
 
-        /* Add All Data */
-        
+		/* Add All Data */
+		data.add(Integer.toString(transactionID));
+		data.add(this.getClass().getSimpleName()); // Transaction Name
+		data.add(Integer.toString(this.account.getAccountID()));
+		data.add(Double.toString(this.moneyToMove.getQuantity()));
+		data.add(this.moneyToMove.getCurrencyName());
 
         return String.join(",", data);
     }

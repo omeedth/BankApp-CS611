@@ -1,5 +1,6 @@
 package Main.Accounts;
 
+import java.text.ParseException;
 
 /* 
  *  Author: 
@@ -12,15 +13,28 @@ package Main.Accounts;
 
 /* Internal Imports */
 import Main.Currencies.Currency;
+import Main.Records.AccountEntry;
+import Main.Users.Client;
 
 public abstract class DepositAccount extends ClientAccount {
-	
 
-    /* Data Members */
+	/* Data Members */
 
-    /* Constructors */
+	/* Constructors */
 	public DepositAccount() {
 		super();
+	}
+
+	public DepositAccount(Currency startingBalance) {
+		super(startingBalance);
+	}
+
+	public DepositAccount(Client accountHolder, Currency startingBalance) {
+		super(accountHolder, startingBalance);
+	}
+
+	public DepositAccount(AccountEntry accountEntry) throws ParseException {
+		super(accountEntry);
 	}
 
     /* Accessor Methods */

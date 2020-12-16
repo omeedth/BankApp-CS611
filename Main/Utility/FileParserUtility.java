@@ -53,6 +53,34 @@ public class FileParserUtility {
         return records;
     }
 
+    public static void writeLines(List<String> lines, String filename, boolean append) {        
+        try (FileWriter writer = new FileWriter(filename)) {            
+            for(String line: lines) {
+                writer.write(line + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }             
+    }
+
+    // public static void writeLines(List<RecordEntry> recordEntries, String filename, boolean append) {
+    //     List<String> lines = new ArrayList<>();
+    //     for(RecordEntry recordEntry : recordEntries) {
+    //         lines.add(RecordEntry.convertToString(recordEntry));
+    //     }
+
+    // }
+
+    public static void writeLine(String line, String filename, boolean append) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, append))) {
+            bw.write(line);
+            bw.newLine();
+        } catch(IOException ioe) {
+            System.out.println("Failed to open the file!");
+        }
+    }
+
     public static void writeLine(RecordEntry recordEntry, String filename, boolean append) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, append))) {
             bw.write(RecordEntry.convertToString(recordEntry));

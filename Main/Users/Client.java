@@ -29,6 +29,10 @@ public class Client extends User {
         super(name, username, hashedPassword);
     }
 
+    public Client(int id, String name, String username, int hashedPassword) {
+        super(id, name, username, hashedPassword);
+    }
+
     /* Accessor Methods */
 
     /* Mutator Methods */

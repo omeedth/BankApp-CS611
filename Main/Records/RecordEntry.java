@@ -10,13 +10,14 @@ package Main.Records;
 import java.util.HashMap;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 /* Internal Imports */
 
-public abstract class RecordEntry {
-    
+public abstract class RecordEntry {    
+
     /* Data Members */
     private HashMap<String,Object> recordData;
 
@@ -47,6 +48,7 @@ public abstract class RecordEntry {
         String[] values = recordString.split(",");
         String[] keys = this.getKeys();
         boolean sameLength = keys.length == values.length;
+        System.out.println("Record: " + this.getClass().getSimpleName() + ", Values: " + Arrays.toString(values) + ", Keys: " + Arrays.toString(keys));
         return sameLength;
     }
 
@@ -107,6 +109,11 @@ public abstract class RecordEntry {
         }
 
         return String.join(valueSeparator, resList);
+    }
+
+    @Override
+    public String toString() {
+        return "<" + this.getClass().getSimpleName() + ": " + this.getRecordData() + ">";
     }
 
 }

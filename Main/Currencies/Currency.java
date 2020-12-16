@@ -87,5 +87,24 @@ public abstract class Currency {
 	public void multiplyQuantity(double multiplier) {
 		quantity *= multiplier;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "" + quantity + " " + name;
+	}
+	
+	/* Static Methods */
+
+	public static Currency getCurrency(double amount, String currencyType) {
+		if (currencyType.equals(Dollar.class.getSimpleName())) {
+			return new Dollar(amount);
+		} else if (currencyType.equals(Yen.class.getSimpleName())) {
+			return new Yen(amount);
+		} else if (currencyType.equals(Pound.class.getSimpleName())) {
+			return new Pound(amount);
+		} else {
+			return null;
+		}
+	}
+
 }

@@ -36,6 +36,7 @@ public abstract class User implements Recordable {
 
     public User(String username, int hashedPassword) {
         this(userCounter,"",username,hashedPassword);
+        userCounter++;
     }
 
     // public User(int id, String username, int hashedPassword) {
@@ -44,6 +45,7 @@ public abstract class User implements Recordable {
 
     public User(String name, String username, int hashedPassword) {
         this(userCounter,name,username,hashedPassword);
+        userCounter++;
     }
 
     public User(int id, String name, String username, int hashedPassword) {
@@ -52,7 +54,6 @@ public abstract class User implements Recordable {
         this.username = username;
         this.hashedPassword = hashedPassword;
         this.accounts = new ArrayList<>();
-        userCounter++;
     }
 
     /* Accessor Methods */
@@ -85,18 +86,34 @@ public abstract class User implements Recordable {
     public String toRecordString() {
         List<String> data = new ArrayList<>();
 
+        /* Convert List<Account> to List<String> where it is the ids of the account */
+        List<String> accountIds = new ArrayList<>();
+        for (Account account : this.accounts) {
+            accountIds.add(Integer.toString(account.getAccountID()));
+        }
+
         /* Add All Data */
         data.add(Integer.toString(getId()));
+        data.add(this.getClass().getSimpleName());
         data.add(getName());
         data.add(getUsername());
-        data.add(Integer.toString(getHashedPassword()));
-        // data.add(String.join("~", accounts));
+        data.add(Integer.toString(getHashedPassword()));    
+        
+        String accountIdsString = String.join("~", accountIds);
+        data.add((accountIdsString.isEmpty() ? " " : accountIdsString));        
+
+        System.out.println("Data: " + data + ", Length: " + String.join(",", data).split(",").length);
 
         return String.join(",", data);
     }
     
     public void addAccount(Account account) {
     	accounts.add(account);
+    }
+
+    @Override
+    public String toString() {
+        return "<User: " + this.getClass().getSimpleName() + ", ID: " + id + ", Name: " + name + ", Username: " + username + ", HashedPassword: " + hashedPassword + ", Accounts: " + accounts + ">";
     }
     
 }

@@ -36,6 +36,11 @@ public class Manager extends User {
         uncheckedLoans = new ArrayList<LoanReview>();
     }
 
+    public Manager(int id, String name, String username, int hashedPassword) {
+        super(id, name, username, hashedPassword);
+        uncheckedLoans = new ArrayList<LoanReview>();
+    }
+
     /* Accessor Methods */
 	
 	public ArrayList<LoanReview> getUncheckedLoans() {

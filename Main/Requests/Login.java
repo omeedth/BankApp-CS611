@@ -14,6 +14,7 @@ import Main.Bank;
 import Main.Users.User;
 import Main.Bank;
 import Main.FancyATM;
+import Main.Display.Pages.UserPage;
 
 public class Login extends Request {
     
@@ -77,6 +78,8 @@ public class Login extends Request {
         boolean userRecordExist = bank.validateUser(username, password);
         if (userRecordExist) {
             System.out.println("Username Password Combo Exists!");
+            
+            atm.getDisplay().changePage(new UserPage(bank.getUserFromCredentials(username,password)));
         } else {
             System.out.println("Username Password Combo doesn\'t exist!");
             status = -1;

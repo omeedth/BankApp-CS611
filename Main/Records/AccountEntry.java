@@ -11,17 +11,23 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /* Internal Imports */
 import Main.Users.User;
+import Main.Utility.FileParserUtility;
 import Main.Accounts.Account;
+import Main.Accounts.AdministrativeAccount;
+import Main.Accounts.CheckingsAccount;
+import Main.Accounts.SavingsAccount;
 
 public class AccountEntry extends RecordEntry {
 
     /* Static/Final Members */
     public static final String filepath = "./Data/Accounts.csv";
-    public static final String[] keys = new String[] {"id","creationDate","currencyType","balance"};
+    public static final String[] keys = new String[] { "id", "creationDate", "accountType", "userId", "currencyType",
+            "balance" };
 
     /* Data Members */
 
@@ -39,7 +45,49 @@ public class AccountEntry extends RecordEntry {
 
     /* Mutator Methods */
 
-    /* Logic Methods */    
+    /* Logic Methods */
+
+    public Account getAccount() {
+        Account account = null;
+
+        HashMap<String, Object> recordData = this.getRecordData();
+        if (recordData.get("accountType").equals(CheckingsAccount.class.getSimpleName())) {
+            try {
+                account = new CheckingsAccount(this);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else if (recordData.get("accountType").equals(SavingsAccount.class.getSimpleName())) {
+            try {
+                account = new SavingsAccount(this);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else if (recordData.get("accountType").equals(AdministrativeAccount.class.getSimpleName())) {
+            try {
+                account = new AdministrativeAccount(this);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        return account;
+    }
+
+    public User getUser() {
+        HashMap<String,Object> recordData = this.getRecordData();
+        List<String> lines = FileParserUtility.getLines(UserEntry.filepath);
+        for (String line : lines) {
+            UserEntry userEntry = new UserEntry(line);
+            if(userEntry.getRecordData().get("id").equals(recordData.get("userId"))) {
+                return userEntry.getUser();
+            }
+        }
+        return null;
+    }
 
     @Override
     public String[] getKeys() {

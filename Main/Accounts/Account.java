@@ -12,6 +12,7 @@ import java.util.Date;
 /* External Imports */
 import java.util.HashMap;
 import java.util.List;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ import Main.Records.Recordable;
 public abstract class Account implements Recordable {
 	
 	//TODO: Accounts must be able to be loaded from file
-	private static int accountTotal = 0;
+	public static int accountCount = 0;
 
     /* Data Members */
     public Bank bank;    
@@ -39,8 +40,15 @@ public abstract class Account implements Recordable {
 		// permissions = new HashMap<String,Boolean>();
 		// username = "";
 		// password = "";
-		accountID = accountTotal;
-		accountTotal++;
+        accountID = accountCount;
+        dateCreated = new Date(System.currentTimeMillis());
+		accountCount++;
+    }
+    
+    public Account(int id, Date creationDate) {
+		bank = null;
+		accountID = id;
+		dateCreated = creationDate;
 	}
 
     /* Accessor Methods */
@@ -78,7 +86,25 @@ public abstract class Account implements Recordable {
         List<String> data = new ArrayList<>();
 
         /* Add All Data */
-        
+        data.add(Integer.toString(accountID));
+        data.add(dateCreated.toString());
+        data.add(this.getClass().getSimpleName());
+
+        if (this instanceof ClientAccount) {
+            ClientAccount clientAccount = (ClientAccount) this;
+            data.add(Integer.toString(clientAccount.getAccountHolder().getId()));
+            data.add(clientAccount.getCurrencyType());
+            data.add(Double.toString(clientAccount.getAccountBalance().getQuantity()));
+        } else if (this instanceof ManagerAccount) { 
+            ManagerAccount managerAccount = (ManagerAccount) this;
+            data.add(Integer.toString(managerAccount.getAccountHolder().getId()));
+            data.add("null");
+            data.add("0");
+        } else {
+            data.add("");
+            data.add("null");
+            data.add("0");
+        }
 
         return String.join(",", data);
     }
